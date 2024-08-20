@@ -15,7 +15,7 @@ export default class Device extends BaseModel {
   public merk: string
 
   @column()
-  public adress: string
+  public address: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -38,3 +38,14 @@ Route.group(() => {
   .middleware('guest')
 
 Route.get('/auth/logout', 'AuthController.logout').as('logout').middleware('auth')
+
+Route.post('/mqtt/publish', 'MqttsController.publish')
+
+Route.group(() => {
+  Route.get('/profile', 'ProfilesController.index').as('profile')
+  Route.post('/profile', 'ProfilesController.update').as('profile.update')
+
+  Route.post('/change-password', 'ProfilesController.changePassword').as('profile.changePassword')
+})
+  .prefix('/user')
+  .middleware('auth')

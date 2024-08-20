@@ -22,7 +22,10 @@ export default class IrCode extends BaseModel {
   public command: string
 
   @column()
-  public description: string | undefined | null
+  public variable: string
+
+  @column()
+  public description: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

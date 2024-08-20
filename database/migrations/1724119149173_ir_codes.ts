@@ -14,6 +14,7 @@ export default class extends BaseSchema {
         .onUpdate('CASCADE')
         .index()
       table.string('command').notNullable()
+      table.string('variable').notNullable()
       table.text('description').notNullable()
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })

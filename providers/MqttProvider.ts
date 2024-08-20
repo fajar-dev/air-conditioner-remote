@@ -1,5 +1,6 @@
 import type { ApplicationContract } from '@ioc:Adonis/Core/Application'
 import mqtt from 'mqtt'
+
 import Env from '@ioc:Adonis/Core/Env'
 
 /*
@@ -26,7 +27,9 @@ export default class MqttProvider {
 
   public register() {
     this.app.container.singleton('Mqtt', () => {
-      const client = mqtt.connect(Env.get('MQTT_HOST'), {
+      const client = mqtt.connect({
+        host: Env.get('MQTT_HOST'),
+        protocol: Env.get('MQTT_PROTOCOL'),
         username: Env.get('MQTT_USERNAME'),
         password: Env.get('MQTT_PASSWORD'),
         port: Env.get('MQTT_port'),
@@ -47,6 +50,13 @@ export default class MqttProvider {
   public async boot() {
     const MqttClient = this.app.container.use('Mqtt')
     MqttClient.subscribe('lamp', (err) => {
+      if (!err) {
+        console.log('Subscribed to topic')
+      } else {
+        console.error('Failed to subscribe to topic:', err)
+      }
+    })
+    MqttClient.subscribe('aa', (err) => {
       if (!err) {
         console.log('Subscribed to topic')
       } else {
