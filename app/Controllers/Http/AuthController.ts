@@ -14,12 +14,7 @@ export default class AuthController {
     const email = request.input('email')
     const password = request.input('password')
     try {
-      const user = await auth.use('web').attempt(email, password)
-      if (!user.verifiedAt) {
-        session.flash('error', 'Email is not verified. Please verify your email address.')
-        await auth.logout()
-        return response.redirect().toRoute('login')
-      }
+      await auth.use('web').attempt(email, password)
       return response.redirect().toRoute('main')
     } catch {
       session.flash('error', 'Email or password is wrong')

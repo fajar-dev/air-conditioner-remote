@@ -32,7 +32,13 @@ export default class Item extends BaseModel {
   public description: string | null | undefined
 
   @column()
-  public swing: boolean
+  public isSwing: boolean
+
+  @column()
+  public isActive: boolean
+
+  @column()
+  public temperature: string
 
   @column()
   public schedule: DateTime | null | undefined

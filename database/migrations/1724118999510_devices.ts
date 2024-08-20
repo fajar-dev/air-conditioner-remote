@@ -8,9 +8,6 @@ export default class extends BaseSchema {
       table.uuid('id').primary()
       table.string('merk').notNullable()
       table.string('address').notNullable()
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

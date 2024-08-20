@@ -13,7 +13,7 @@ export default class extends BaseSchema {
       table.string('verified_token').index().nullable()
       table.timestamp('verified_at', { useTz: true }).nullable()
       table
-        .uuid('device_id')
+        .uuid('role_id')
         .references('id')
         .inTable('roles')
         .onDelete('CASCADE')
