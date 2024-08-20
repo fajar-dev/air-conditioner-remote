@@ -1,0 +1,61 @@
+@layout('layouts/app')
+@set('title', 'Dashboard')
+
+@section('content')
+      <main class="my-4">
+        <section>
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <p class="sub-title">My Short URL</p>
+                <h2 class="title">Dashboard</h2>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-lg-8 px-4">
+              @each(data in data)
+                <div class="card card-primary mt-4">
+                  <div class="card-body">
+                   <h6>{{ data.longUrl }}</h6>
+                   <a href="https://unimal.link/{{ data.slug }}" target="_blank">https://unimal.link/{{ data.slug }}</a>
+                   <div class="d-block mt-4">
+                     <a href="{{ route('link.show', {id: data.id}) }}" class="btn btn-light">View Statistics</a>
+                   </div>
+                  </div>
+                </div>
+              @else
+                <div class="text-center">
+                <img src="{{ asset('assets/images/no-data.png') }}" class="mb-4 opacity-50" width="80">
+                  <p>~ No data available ~</p>
+                </div>
+              @end
+              </div>
+            </div>
+
+            @if(data.hasPages)
+              <div class="row justify-content-center py-5">
+                <div class="col-lg-8">
+                  <nav>
+                    <ul class="pagination justify-content-end"> <!-- Use justify-content-end class here -->
+                      <li>
+                        <a href="{{ route('dashboard')+data.getPreviousPageUrl() }}" class="pe-3 link-underline link-underline-opacity-0 border-0 bg-transparent fw-bold  {{ data.getPreviousPageUrl() ?? 'd-none' }}">Previous</a>
+                      </li>
+                      {{--  {{data.currentPage }}  --}}
+                      @each( link in data.getUrlsForRange(data.firstPage, data.lastPage))
+                        <li>
+                          <a class="px-1 border-0 bg-transparent  {{ link.isActive ? 'link-offset-2 text-dark fw-bold' : 'link-underline-primary link-offset-2 ' }}" href="{{ route('dashboard')+link.url }}">{{ link.page }}</a>
+                        </li>
+                      @endeach
+                      <li>
+                        <a class="ps-3 link-underline link-underline-opacity-0 border-0 bg-transparent fw-bold {{ data.getNextPageUrl() ?? 'd-none' }}" href="{{ route('dashboard')+data.getNextPageUrl() }}">Next</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            @endif
+            
+          </div>
+        </section>
+      </main>
+@end

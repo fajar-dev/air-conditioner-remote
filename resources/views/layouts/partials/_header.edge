@@ -1,0 +1,98 @@
+      <header>
+        {{-- @if(auth.isLoggedIn)
+        <div class="alert alert-warning alert-dismissible fade show " role="alert">
+          <strong>Hi, {{ auth.user.name }}!</strong> <br><small>Enhance your journey by <a href="{{route('profile')}}">completing your profile</a>. Exciting adventures await you!!</small>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif --}}
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <div class="container">
+            <a class="navbar-brand" href="#">
+              <img src="{{ asset('assets/images/logos.png') }}" alt="" width="200">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav me-auto ms-auto">
+                <a class="nav-link" href="">Home</a>
+                <a class="nav-link" href="">Link in Bio</a>
+                <a class="nav-link" href="">Blog</a>
+                <a class="nav-link" href="">Event</a>
+              </div>
+              <div class="icon d-none d-lg-block">
+              {{--  {{ console.log(await auth.use('web').authenticate() ) }}  --}}
+                @if(auth.isLoggedIn)
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-placement="top"   data-bs-toggle="dropdown">
+                    <img src="https://robohash.org/{{ auth.user.email }}" class="bg-white rounded" alt="avatar" width="20">
+                    {{ (auth.user.name).length > 12? (auth.user.name).substring(0,9)+"..." : auth.user.name}}
+                  </button>
+                  <ul class="dropdown-menu border-2 border-dark">
+                    <div class="d-flex align-items-center p-3 border-bottom">
+                      <img src="https://robohash.org/{{ auth.user.email }}" class="bg-primary rounded me-3" alt="avatar" width="50">
+                      <div>
+                        <span class="fw-bold">{{ auth.user.name }}</span>
+                        <small>{{ auth.user.email }}</small>
+                      </div>
+                    </div>
+                    <div class="py-2">
+                      <li><a class="dropdown-item py-2" href="">Dashboard</a></li>
+                      <li><a class="dropdown-item py-2" href="">Profile</a></li>
+                      <li><a class="dropdown-item py-2" href="{{ route('logout') }}">Logout</a></li>
+                    </div>
+                  </ul>
+                </div>
+                @else
+                <a href="{{ route('register') }}" class="btn btn-primary"> Register</a>
+                <a href="{{ route('login') }}" class="btn btn-light"> Login</a>
+                @endif
+              </div>
+            </div>
+
+            <div class="offcanvas offcanvas-start d-lg-none bg-light" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+              <div class="offcanvas-header bg-body border-bottom border-2 border-dark">
+              <img src="{{ asset('assets/images/logos.png') }}" alt="" width="200">
+              
+                <button type="button" class="border-0 bg-transparent" data-bs-dismiss="offcanvas" ><i class="bi bi-arrow-left-circle-fill fs-1 text-danger"></i></button>
+              </div>
+              <div class="offcanvas-body">
+                <div class="navbar-nav me-auto ms-auto">
+                  <a class="nav-link" href="">Home</a>
+                  <a class="nav-link" href="">Link in Bio</a>
+                  <a class="nav-link" href="">Blog</a>
+                  <a class="nav-link" href="">Event</a>
+                </div>
+              </div>
+              <div class="offcanvas-footer p-2 border-top border-2 border-dark">
+                @if(auth.isLoggedIn)
+                <div class="dropup">
+                  <button class="btn btn-secondary dropdown-toggle w-100" type="button" data-bs-placement="top"   data-bs-toggle="dropdown">
+                    <img src="https://robohash.org/{{ auth.user.email }}" class="bg-white rounded" alt="avatar" width="30">
+                    {{ auth.user.name }}
+                  </button>
+                  <ul class="dropdown-menu border-2 border-dark w-100">
+                    <div class="d-flex align-items-center p-3 border-bottom">
+                      <img src="https://robohash.org/wawan mks" class="bg-primary rounded me-3" alt="avatar" width="50">
+                      <div>
+                        <span class="fw-bold d-block">{{ auth.user.name }}</span>
+                        <small>{{ auth.user.email }}</small>
+                      </div>
+                    </div>
+                    <div class="py-2">
+                      <li><a class="dropdown-item py-2" href="{{ route('dashboard') }}">Dashboard</a></li>
+                      <li><a class="dropdown-item py-2" href="{{ route('profile') }}">Profile</a></li>
+                      <li><a class="dropdown-item py-2" href="{{ route('logout') }}">Logout</a></li>
+                    </div>
+                  </ul>
+                </div>
+                @else
+                <a href="{{ route('register') }}" class="btn btn-primary w-100 my-1"> Register</a>
+                <a href="{{ route('login') }}" class="btn btn-light w-100 my-1"> Login</a>
+                @endif
+              </div>
+            </div>
+            
+          </div>
+        </nav>
+      </header>

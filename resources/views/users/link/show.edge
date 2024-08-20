@@ -1,0 +1,136 @@
+@layout('layouts/app')
+@set('title', 'URL Statistics')
+
+@section('content')
+      <main class="my-4">
+        <section>
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <p class="sub-title">My Short URL Statictic</p>
+                <h2 class="title">Statistic</h2>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-lg-8 px-4">
+                <div class="card card-primary mt-4">
+                  <div class="card-body">
+                  {{-- {{qrcode}} --}}
+                    <div class="row">
+                      <div class="col-md-3 text-md-center">
+                        <img src="{{ qr }}" class="img-fluid border border-3 border-dark mb-3 mb-md-0 p-2 bg-yellow" alt="Red dot" />
+                      </div>
+                      <div class="col-md-9">
+                        <h6>{{ data.longUrl }}</h6>
+                        <a href="https://unimal.link/{{ data.slug }}" target="_blank">https://unimal.link/{{ data.slug }} <i class="bi bi-box-arrow-up-right"></i></a>
+                        <div class=" d-block mt-4 mb-2" role="group" aria-label="Basic example">
+                          <a href="https://www.linkedin.com/shareArticle?url=https://unimal.link/{{ data.slug }}" target="_blank" class="btn btn-dark"><i class="bi bi-linkedin"></i></a>
+                          <a href="whatsapp://send?text=https://unimal.link/{{ data.slug }}" target="_blank" class="btn btn-dark"><i class="bi bi-whatsapp"></i></a>
+                          <a href="https://www.instagram.com/share?url=https://unimal.link/{{ data.slug }}" target="_blank" class="btn btn-dark"><i class="bi bi-instagram"></i></a>
+                          <a href="https://www.facebook.com/sharer/sharer.php?u=https://unimal.link/{{ data.slug }}" target="_blank" class="btn btn-dark"><i class="bi bi-facebook"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card bg-grey border border-3 border-dark bg-light mt-4" style="margin-right: -15px !important ">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="alert alert-dark border-dark border-2 text-end  text-dark" role="alert">
+                          <h1>{{ stats[0].total[0].total }}</h1>
+                          <span>amount report</span>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="alert alert-dark border-dark border-2 text-end  text-dark" role="alert">
+                          <h1>{{ stats[1].weekly[0].total }}</h1>
+                          <span>weekly report</span>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="alert alert-dark border-dark border-2 text-end text-dark" role="alert">
+                          <h1>{{ stats[2].monthly[0].total }}</h1>
+                          <span>monthly report</span>
+                        </div>
+                      </div>
+                    </div>
+                    <h6 class="fw-bold mt-2 link-underline-primary">Platform Statictic</h6>
+                    <div class="row px-3">
+                      <table class="table table-light">
+                        <thead>
+                          <tr>
+                            <th scope="col">Platform</th>
+                            <th scope="col" class="text-end">View</th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-group-divider" >
+                          @each(data in stats[3].platforms)
+                            <tr>
+                              <td>{{ data.platform }}</td>
+                              <th scope="row" class="text-end">{{ data.count }}</th>
+                            </tr>
+                          @else
+                            <tr>
+                              <td colspan="2" class="text-center"><small>~ No data available ~</small></td>
+                            </tr>
+                          @end
+                        </tbody>
+                      </table>
+                    </div>
+                    <h6 class="fw-bold mt-2 link-underline-primary">Device Statictic</h6>
+                    <div class="row px-3">
+                      <table class="table table-light">
+                        <thead>
+                          <tr>
+                            <th scope="col">Device</th>
+                            <th scope="col"  class="text-end">View</th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-group-divider" >
+                          @each(data in stats[4].device)
+                          <tr>
+                            <td>{{ data.device }}</td>
+                            <th scope="row" class="text-end">{{ data.count }}</th>
+                          </tr>
+                        @else
+                          <tr>
+                            <td colspan="2" class="text-center"><small>~ No data available ~</small></td>
+                          </tr>
+                        @end
+                        </tbody>
+                      </table>
+                    </div>
+                    <h6 class="fw-bold mt-2 link-underline-primary">Browser Statictic</h6>
+                    <div class="row px-3">
+                      <table class="table table-light">
+                        <thead>
+                          <tr>
+                            <th scope="col">Browser</th>
+                            <th scope="col"  class="text-end">View</th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-group-divider" >
+                          @each(data in stats[5].browsers)
+                            <tr>
+                              <td>{{ data.browser }}</td>
+                              <th scope="row" class="text-end">{{ data.count }}</th>
+                            </tr>
+                          @else
+                            <tr>
+                              <td colspan="2" class="text-center"><small>~ No data available ~</small></td>
+                            </tr>
+                          @end
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+@end
+

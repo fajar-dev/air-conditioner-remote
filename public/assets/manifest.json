@@ -1,0 +1,21 @@
+{
+  "assets/app.css": "http://localhost:8080/assets/app.css",
+  "assets/app.js": "http://localhost:8080/assets/app.js",
+  "assets/images/build.png": "http://localhost:8080/assets/images/build.35e58713.png",
+  "assets/images/404.png": "http://localhost:8080/assets/images/404.de7f1020.png",
+  "assets/images/500.png": "http://localhost:8080/assets/images/500.1b12b265.png",
+  "assets/images/logos.png": "http://localhost:8080/assets/images/logos.4aa16e89.png",
+  "assets/images/no-data.png": "http://localhost:8080/assets/images/no-data.9f5e689f.png",
+  "assets/images/pavicon.png": "http://localhost:8080/assets/images/pavicon.cf9f8629.png",
+  "assets/images/thumbnail.png": "http://localhost:8080/assets/images/thumbnail.71690e31.png",
+  "assets/images/codeigniter.svg": "http://localhost:8080/assets/images/codeigniter.682a885e.svg",
+  "assets/images/linkedin.svg": "http://localhost:8080/assets/images/linkedin.981931b1.svg",
+  "assets/images/php.svg": "http://localhost:8080/assets/images/php.69bdc2b2.svg",
+  "assets/images/bootstrap.svg": "http://localhost:8080/assets/images/bootstrap.e9327afd.svg",
+  "assets/images/instagram.svg": "http://localhost:8080/assets/images/instagram.02967a62.svg",
+  "assets/images/js.svg": "http://localhost:8080/assets/images/js.1e3cff65.svg",
+  "assets/images/figma.svg": "http://localhost:8080/assets/images/figma.4978b583.svg",
+  "assets/images/facebook.svg": "http://localhost:8080/assets/images/facebook.cebbbbea.svg",
+  "assets/images/html.svg": "http://localhost:8080/assets/images/html.d181349c.svg",
+  "assets/images/css.svg": "http://localhost:8080/assets/images/css.a49ee695.svg"
+}

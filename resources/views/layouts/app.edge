@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{{ asset('assets/images/pavicon.png') }}" sizes="16x16" type="image/png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+      @entryPointStyles('app')
+    <title>UNIMAL.LINK | {{ title }}</title>
+    <meta
+    name="keywords"
+    content="short, shorten, url, link, unimal, malikussaleh, universitas, {{ tags ?? '' }}"
+    />
+    <meta name="author" content="UNIMAL.LINK" />
+    <meta name="description" content="{{ description ?? 'Buat tautan pendek, Kode QR, dan bagikan di mana saja.' }}" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:url" content="https://unimal.link" />
+    <meta property="og:title" content="UNIMAL.LINK | {{ title }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="{{ thumbnail ?? asset('assets/images/thumbnail.png')  }}" />
+    <meta
+      property="og:description"
+      content="{{ description ?? 'Buat tautan pendek, Kode QR, dan bagikan di mana saja.' }}"
+    />
+    <meta property="og:locale" content="id_ID" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="UNIMAL.LINK | {{ title }}" />
+    <meta
+      name="twitter:description"
+      content="{{ description ?? 'Buat tautan pendek, Kode QR, dan bagikan di mana saja.' }}"
+    />
+    <meta name="twitter:image" content="{{ thumbnail ?? asset('assets/images/thumbnail.png')  }}" />
+
+    <!-- Additional SEO Meta Tags -->
+    <meta name="distribution" content="global" />
+    <meta name="revisit-after" content="7 days" />
+    <meta name="rating" content="general" />
+    <meta name="language" content="Indonesian" />
+    <meta name="geo.region" content="ID" />
+    <meta name="geo.placename" content="Aceh" />
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json" />
+
+  </head>
+  <body>
+    
+    <div class="d-flex flex-column min-vh-100">
+
+        @include('layouts/partials/_header')
+  
+        @!section('content')
+
+        @include('layouts/partials/_footer')
+
+    </div>
+
+    @if(flashMessages.has('success'))
+      <div class="toast-container position-fixed top-0 end-0 p-3 " >
+        <div id="liveToast" class="toast show border border-2 border-dark" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header border-bottom border-2 border-dark bg-dark text-light">
+            <i class="bi bi-bell-fill"></i> 
+            <strong class="me-auto ms-2">Notification</strong>
+            <small>Now</small>
+            <button type="button" class="btn-close bg-light p-2" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body">
+            {{ flashMessages.get('success') }}
+          </div>
+        </div>
+      </div>
+      <script>
+        setTimeout(function () {
+          var liveToast = document.getElementById("liveToast");
+          liveToast.classList.remove("show");
+        }, 3000);
+      </script>
+      @elseif(flashMessages.has('error'))
+      <div class="toast-container position-fixed top-0 end-0 p-3 " >
+        <div id="liveToast" class="toast show border border-2 border-dark" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header border-bottom border-2 border-dark bg-danger text-light">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <strong class="me-auto ms-2">Failed</strong>
+            <small>Now</small>
+            <button type="button" class="btn-close bg-light p-2" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body">
+            {{ flashMessages.get('error') }}
+          </div>
+        </div>
+      </div>
+      <script>
+        setTimeout(function () {
+          var liveToast = document.getElementById("liveToast");
+          liveToast.classList.remove("show");
+        }, 3000);
+      </script>
+    @endif
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.8/typed.min.js"></script>
+    @entryPointScripts('app')
+      <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('serviceworker.js')
+      }
+        document.getElementById("myForm").addEventListener("submit", function(event) {
+          event.preventDefault();      
+          var button = document.getElementById("submitButton");
+          button.disabled = true;
+          button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';      
+          setTimeout(function() {
+            document.getElementById("myForm").submit();
+          }, 2000);
+        });
+      </script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YWN5TGWPY"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+      
+        gtag('config', 'G-6YWN5TGWPY');
+      </script>
+  </body>
+  
+</html>

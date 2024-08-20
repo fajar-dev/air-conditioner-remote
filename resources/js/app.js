@@ -1,0 +1,5 @@
+// import '../css/app.css'
+import '../css/bootstrap.css'
+import '../css/style.css'
+import './bootstrap.bundle.min.js'
+import './main.js'

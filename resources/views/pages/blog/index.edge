@@ -1,0 +1,64 @@
+@layout('layouts/app')
+@set('title', 'Blog')
+
+@section('content')
+      <main class="my-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12 d-md-flex justify-content-between align-items-center">
+                <div>
+                  <p class="sub-title">Read All Article</p>
+                  <h2 class="title">{{ q ? `Search: "${q}"` : 'Blog' }}</h2>
+                </div>
+                <div class="mt-4 mt-md-0">
+                  <form class="d-flex" role="search">
+                    <input class="form-control me-2 border-2 border-dark" type="search" placeholder="Search" aria-label="Search" name="q" value="{{ q }}">
+                    <button class="btn btn-dark" type="submit"><i class="bi bi-search"></i></button>
+                  </form>
+                </div>
+            </div>
+          </div>
+          <div class="row pt-3 ">
+              @each(data in data)
+              <div  class="col-lg-3 col-md-6">
+                <div class="card card-secondary mt-4 mx-2 mx-md-0">
+                  <div class="card-body">
+                    <img src="{{ data.image }}" class="img-fluid border border-4 border-dark mb-2" alt="project">
+                    <small class="text-muted">{{ data.createdAt.toFormat('d/M/yyyy') }}</small>
+                    <h6 class="pb-3">{{ data.title }}</h6>
+                    <a href="{{ route('blog.show', {slug: data.slug}) }}" class="btn btn-primary w-100 btn-lg">Read More</a>
+                  </div>
+                </div>
+              </div>
+              @else
+                <div class="text-center">
+                <img src="{{ asset('assets/images/no-data.png') }}" class="mb-4 opacity-50" width="80">
+                  <p>~ No data available ~</p>
+                </div>
+              @end
+          </div>
+            @if(data.hasPages)
+              <div class="row justify-content-center py-5">
+                <div class="col-lg-12">
+                  <nav>
+                    <ul class="pagination justify-content-end"> <!-- Use justify-content-end class here -->
+                      <li>
+                        <a href="{{ q ? route('blog')+data.getPreviousPageUrl()+'&q='+q : route('blog')+data.getPreviousPageUrl() }}" class="pe-3 link-underline link-underline-opacity-0 border-0 bg-transparent fw-bold  {{ data.getPreviousPageUrl() ?? 'd-none' }}">Previous</a>
+                      </li>
+                      {{--  {{data.currentPage }}  --}}
+                      @each( link in data.getUrlsForRange(data.firstPage, data.lastPage))
+                        <li>
+                          <a class="px-1 border-0 bg-transparent  {{ link.isActive ? 'link-offset-2 text-dark fw-bold' : 'link-underline-primary link-offset-2 ' }}" href="{{ q ? route('blog')+link.url+'&q='+q : route('blog')+link.url }}">{{ link.page }}</a>
+                        </li>
+                      @endeach
+                      <li>
+                        <a class="ps-3 link-underline link-underline-opacity-0 border-0 bg-transparent fw-bold {{ data.getNextPageUrl() ?? 'd-none' }}" href="{{ q ? route('blog')+data.getNextPageUrl()+'&q='+q : route('blog')+data.getNextPageUrl() }}">Next</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            @endif
+        </div>
+      </main>
+@end
