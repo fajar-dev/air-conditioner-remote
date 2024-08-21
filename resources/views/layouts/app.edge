@@ -46,8 +46,6 @@
     <meta name="geo.placename" content="Aceh" />
 
     <!-- PWA -->
-    <link rel="manifest" href="manifest.json" />
-
   </head>
   <body>
     
@@ -103,30 +101,7 @@
       </script>
     @endif
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.8/typed.min.js"></script>
     @entryPointScripts('app')
-      <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('serviceworker.js')
-      }
-        document.getElementById("myForm").addEventListener("submit", function(event) {
-          event.preventDefault();      
-          var button = document.getElementById("submitButton");
-          button.disabled = true;
-          button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';      
-          setTimeout(function() {
-            document.getElementById("myForm").submit();
-          }, 2000);
-        });
-      </script>
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YWN5TGWPY"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-      
-        gtag('config', 'G-6YWN5TGWPY');
-      </script>
   </body>
   
 </html>
