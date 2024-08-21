@@ -20,34 +20,56 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 Route.group(() => {
-  Route.get('/register', 'AuthController.register').as('register')
-  Route.post('/register', 'AuthController.registerSubmit').as('register.submit')
-
-  Route.get('/verify/:token', 'AuthController.verify').as('verify')
-
-  Route.get('/login', 'AuthController.login').as('login')
-  Route.post('/login', 'AuthController.loginSubmit').as('login.submit')
-
-  Route.get('/forget', 'AuthController.forget').as('forget')
-  Route.post('/forget', 'AuthController.forgetSubmit').as('forget.submit')
-
-  Route.get('/reset/:token/:email', 'AuthController.reset').as('reset')
-  Route.post('/reset/:token/:email', 'AuthController.resetSubmit').as('reset.submit')
+  Route.get('/register', 'Web/AuthController.register').as('register')
+  Route.post('/register', 'Web/AuthController.registerSubmit').as('register.submit')
+  Route.get('/verify/:token', 'Web/AuthController.verify').as('verify')
+  Route.get('/login', 'Web/AuthController.login').as('login')
+  Route.post('/login', 'Web/AuthController.loginSubmit').as('login.submit')
+  Route.get('/forget', 'Web/AuthController.forget').as('forget')
+  Route.post('/forget', 'Web/AuthController.forgetSubmit').as('forget.submit')
+  Route.get('/reset/:token/:email', 'Web/AuthController.reset').as('reset')
+  Route.post('/reset/:token/:email', 'Web/AuthController.resetSubmit').as('reset.submit')
 })
   .prefix('/auth')
   .middleware('guest')
-
-Route.get('/auth/logout', 'AuthController.logout').as('logout').middleware('auth')
+Route.get('/auth/logout', 'Web/AuthController.logout').as('logout').middleware('auth')
 
 Route.get('/dashboard', 'Web/DashboardController.index').as('dashboard').middleware('auth')
 
 Route.group(() => {
-  Route.get('/profile', 'ProfilesController.index').as('profile')
-  Route.post('/profile', 'ProfilesController.update').as('profile.update')
+  Route.get('/building', 'Web/MasterDataController.building').as('master-data.building')
+  Route.post('/building', 'Web/MasterDataController.buildingStore').as('master-data.building.store')
+  Route.post('/building/:id/update', 'Web/MasterDataController.buildingUpdate').as('master-data.building.update')
+  Route.get('/building/:id/delete', 'Web/MasterDataController.buildingDestroy').as('master-data.building.destroy')
+  Route.get('/room', 'Web/MasterDataController.room').as('master-data.room')
+  Route.post('/room', 'Web/MasterDataController.roomStore').as('master-data.room.store')
+  Route.post('/room/:id/update', 'Web/MasterDataController.roomUpdate').as('master-data.room.update')
+  Route.get('/room/:id/delete', 'Web/MasterDataController.roomDestroy').as('master-data.room.destroy')
+})
+  .prefix('/master-data')
+  .middleware('auth')
 
-  Route.post('/change-password', 'ProfilesController.changePassword').as('profile.changePassword')
+  Route.group(() => {
+    Route.get('/', 'Web/RemotesController.index').as('remote')
+  })
+    .prefix('/remote')
+    .middleware('auth')
+
+Route.group(() => {
+  Route.get('/', 'Web/UsersController.building').as('user')
+  Route.post('/', 'Web/UsersController.Store').as('user.store')
+  Route.post('/:id/update', 'Web/UsersController.Update').as('user.update')
+  Route.get('/:id/delete', 'Web/UsersController.Destroy').as('user.destroy')
 })
   .prefix('/user')
+  .middleware('auth')
+
+Route.group(() => {
+  Route.get('/', 'Web/ProfilesController.index').as('profile')
+  Route.post('/', 'Web/ProfilesController.update').as('profile.update')
+  Route.post('/change-password', 'Web/ProfilesController.changePassword').as('profile.changePassword')
+})
+  .prefix('/profile')
   .middleware('auth')
 
 Route.post('/mqtt/publish', 'MqttsController.publish')

@@ -27,12 +27,12 @@
             <span class="menu-icon">
               <i class="ki-outline ki-external-drive fs-2"></i>
             </span>
-            <span class="menu-title">Data Master</span>
+            <span class="menu-title">Master Data</span>
             <span class="menu-arrow"></span>
           </span>
           <div class="menu-sub menu-sub-accordion">
             <div class="menu-item">
-              <a class="menu-link @if(title == 'Building') active @end" href="#">
+              <a class="menu-link @if(title == 'Building') active @end" href="{{ route('master-data.building') }}">
                 <span class="menu-bullet">
                   <span class="bullet bullet-dot"></span>
                 </span>
@@ -40,7 +40,7 @@
               </a>
             </div>
             <div class="menu-item">
-              <a class="menu-link @if(title == 'Room') active @end" href="">
+              <a class="menu-link @if(title == 'Room') active @end" href="{{ route('master-data.room') }}">
                 <span class="menu-bullet">
                   <span class="bullet bullet-dot"></span>
                 </span>
@@ -50,7 +50,7 @@
           </div>
         </div>
         <div class="menu-item  @if(title == 'Remote') here show @end">
-          <a href="" class="menu-link">
+          <a href="{{ route('remote') }}" class="menu-link">
             <span class="menu-icon">
               <i class="ki-outline ki-calculator fs-2"></i>
             </span>
@@ -59,7 +59,7 @@
           </a>
         </div>
         <div class="menu-item  @if(title == 'User') here show @end">
-          <a href="" class="menu-link">
+          <a href="{{ route('user') }}" class="menu-link">
             <span class="menu-icon">
               <i class="ki-outline ki-user fs-2"></i>
             </span>
