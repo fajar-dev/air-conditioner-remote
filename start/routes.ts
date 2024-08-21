@@ -39,7 +39,7 @@ Route.group(() => {
 
 Route.get('/auth/logout', 'AuthController.logout').as('logout').middleware('auth')
 
-Route.post('/mqtt/publish', 'MqttsController.publish')
+Route.get('/dashboard', 'Web/DashboardController.index').as('dashboard').middleware('auth')
 
 Route.group(() => {
   Route.get('/profile', 'ProfilesController.index').as('profile')
@@ -49,3 +49,5 @@ Route.group(() => {
 })
   .prefix('/user')
   .middleware('auth')
+
+Route.post('/mqtt/publish', 'MqttsController.publish')

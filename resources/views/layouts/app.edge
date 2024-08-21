@@ -1,107 +1,54 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="{{ asset('assets/images/pavicon.png') }}" sizes="16x16" type="image/png">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-      @entryPointStyles('app')
-    <title>UNIMAL.LINK | {{ title }}</title>
-    <meta
-    name="keywords"
-    content="short, shorten, url, link, unimal, malikussaleh, universitas, {{ tags ?? '' }}"
-    />
-    <meta name="author" content="UNIMAL.LINK" />
-    <meta name="description" content="{{ description ?? 'Buat tautan pendek, Kode QR, dan bagikan di mana saja.' }}" />
-
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:url" content="https://unimal.link" />
-    <meta property="og:title" content="UNIMAL.LINK | {{ title }}" />
+    <title>aaa</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="The most advanced Bootstrap 5 Admin Theme with 40 unique prebuilt layouts on Themeforest trusted by 100,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel versions. Grab your copy now and get life-time updates for free." />
+    <meta name="keywords" content="metronic, bootstrap, bootstrap 5, angular, VueJs, React, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel starter kits, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dark mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="{{ thumbnail ?? asset('assets/images/thumbnail.png')  }}" />
-    <meta
-      property="og:description"
-      content="{{ description ?? 'Buat tautan pendek, Kode QR, dan bagikan di mana saja.' }}"
-    />
-    <meta property="og:locale" content="id_ID" />
-
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="UNIMAL.LINK | {{ title }}" />
-    <meta
-      name="twitter:description"
-      content="{{ description ?? 'Buat tautan pendek, Kode QR, dan bagikan di mana saja.' }}"
-    />
-    <meta name="twitter:image" content="{{ thumbnail ?? asset('assets/images/thumbnail.png')  }}" />
-
-    <!-- Additional SEO Meta Tags -->
-    <meta name="distribution" content="global" />
-    <meta name="revisit-after" content="7 days" />
-    <meta name="rating" content="general" />
-    <meta name="language" content="Indonesian" />
-    <meta name="geo.region" content="ID" />
-    <meta name="geo.placename" content="Aceh" />
-
-    <!-- PWA -->
+    <meta property="og:title" content="Metronic - The World's #1 Selling Bootstrap Admin Template by KeenThemes" />
+    <meta property="og:url" content="https://keenthemes.com/metronic" />
+    <meta property="og:site_name" content="Metronic by Keenthemes" />
+    <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+    @entryPointStyles('app')
   </head>
-  <body>
-    
-    <div class="d-flex flex-column min-vh-100">
 
-        @include('layouts/partials/_header')
-  
-        @!section('content')
+  <body id="kt_app_body" data-kt-app-header-fixed="true" data-kt-app-header-fixed-mobile="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true" data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" class="app-default">
+		<div class="d-flex flex-column flex-root app-root" id="kt_app_root">
+			<div class="app-page flex-column flex-column-fluid" id="kt_app_page">
+				
+        @include('layouts/partials/_topbar')
 
-        @include('layouts/partials/_footer')
+				<div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
 
-    </div>
+          @include('layouts/partials/_sidebar')
+					
+					<div class="app-main flex-column flex-row-fluid bg-light" id="kt_app_main">
+						<div class="d-flex flex-column flex-column-fluid">
+							<div id="kt_app_content" class="app-content flex-column-fluid">
+								<div id="kt_app_content_container" class="app-container container-fluid">
 
-    @if(flashMessages.has('success'))
-      <div class="toast-container position-fixed top-0 end-0 p-3 " >
-        <div id="liveToast" class="toast show border border-2 border-dark" role="alert" aria-live="assertive" aria-atomic="true">
-          <div class="toast-header border-bottom border-2 border-dark bg-dark text-light">
-            <i class="bi bi-bell-fill"></i> 
-            <strong class="me-auto ms-2">Notification</strong>
-            <small>Now</small>
-            <button type="button" class="btn-close bg-light p-2" data-bs-dismiss="toast" aria-label="Close"></button>
-          </div>
-          <div class="toast-body">
-            {{ flashMessages.get('success') }}
-          </div>
-        </div>
-      </div>
-      <script>
-        setTimeout(function () {
-          var liveToast = document.getElementById("liveToast");
-          liveToast.classList.remove("show");
-        }, 3000);
-      </script>
-      @elseif(flashMessages.has('error'))
-      <div class="toast-container position-fixed top-0 end-0 p-3 " >
-        <div id="liveToast" class="toast show border border-2 border-dark" role="alert" aria-live="assertive" aria-atomic="true">
-          <div class="toast-header border-bottom border-2 border-dark bg-danger text-light">
-            <i class="bi bi-exclamation-triangle-fill"></i>
-            <strong class="me-auto ms-2">Failed</strong>
-            <small>Now</small>
-            <button type="button" class="btn-close bg-light p-2" data-bs-dismiss="toast" aria-label="Close"></button>
-          </div>
-          <div class="toast-body">
-            {{ flashMessages.get('error') }}
-          </div>
-        </div>
-      </div>
-      <script>
-        setTimeout(function () {
-          var liveToast = document.getElementById("liveToast");
-          liveToast.classList.remove("show");
-        }, 3000);
-      </script>
-    @endif
-    
+                  @!section('content')
+
+							</div>
+						</div>
+					</div>
+
+						@include('layouts/partials/_footer')
+            
+					</div>
+				</div>
+			</div>
+		</div>
+
+    @include('layouts/partials/alert')
+
+    <script src="https://preview.keenthemes.com/metronic8/demo55/assets/plugins/global/plugins.bundle.js"></script>
+    <script src="https://preview.keenthemes.com/metronic8/demo55/assets/js/scripts.bundle.js"></script>
     @entryPointScripts('app')
-  </body>
-  
+	</body>
+
 </html>

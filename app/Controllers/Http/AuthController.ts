@@ -15,7 +15,7 @@ export default class AuthController {
     const password = request.input('password')
     try {
       await auth.use('web').attempt(email, password)
-      return response.redirect().toRoute('main')
+      return response.redirect().toRoute('dashboard')
     } catch {
       session.flash('error', 'Email or password is wrong')
       return response.redirect().toRoute('login')
@@ -24,7 +24,7 @@ export default class AuthController {
 
   public async logout({ auth, response }: HttpContextContract) {
     await auth.use('web').logout()
-    return response.redirect().toRoute('main')
+    return response.redirect().toRoute('login')
   }
 
   public async forget({ view }: HttpContextContract) {
