@@ -20,7 +20,7 @@ export default class AuthController {
       session.flash('error', 'Email or password is wrong')
       return response.redirect().toRoute('login')
     }
-  }
+  } 
 
   public async logout({ auth, response }: HttpContextContract) {
     await auth.use('web').logout()

@@ -13,8 +13,8 @@
   <div class="app-sidebar-menu flex-column-fluid">
     <div id="kt_app_sidebar_menu_wrapper" class="hover-scroll-overlay-y my-5" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer" data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px">
       <div class="menu menu-column menu-rounded menu-sub-indention fw-bold px-6" id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
-        <div class="menu-item">
-          <a href="" class="menu-link">
+        <div class="menu-item @if(title == 'Dashboard') here show @end">
+          <a href="{{ route('dashboard') }}" class="menu-link">
             <span class="menu-icon">
               <i class="ki-outline ki-category fs-2"></i>
             </span>
@@ -22,32 +22,50 @@
             <span class="menu-arrow"></span>  
           </a>
         </div>
-        <div data-kt-menu-trigger="click" class="menu-item menu-accordion here show">
+        <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(title === 'Data Master') here show @end">
           <span class="menu-link">
             <span class="menu-icon">
-              <i class="ki-outline ki-cup fs-2"></i>
+              <i class="ki-outline ki-external-drive fs-2"></i>
             </span>
-            <span class="menu-title">Competition</span>
+            <span class="menu-title">Data Master</span>
             <span class="menu-arrow"></span>
           </span>
           <div class="menu-sub menu-sub-accordion">
             <div class="menu-item">
-              <a class="menu-link active @endif" href="#">
+              <a class="menu-link @if(title == 'Building') active @end" href="#">
                 <span class="menu-bullet">
                   <span class="bullet bullet-dot"></span>
                 </span>
-                <span class="menu-title">Member</span>
+                <span class="menu-title">Building</span>
               </a>
             </div>
             <div class="menu-item">
-              <a class="menu-link" href="">
+              <a class="menu-link @if(title == 'Room') active @end" href="">
                 <span class="menu-bullet">
                   <span class="bullet bullet-dot"></span>
                 </span>
-                <span class="menu-title">Submission</span>
+                <span class="menu-title">Room</span>
               </a>
             </div>
           </div>
+        </div>
+        <div class="menu-item  @if(title == 'Remote') here show @end">
+          <a href="" class="menu-link">
+            <span class="menu-icon">
+              <i class="ki-outline ki-calculator fs-2"></i>
+            </span>
+            <span class="menu-title">Remote</span>
+            <span class="menu-arrow"></span>
+          </a>
+        </div>
+        <div class="menu-item  @if(title == 'User') here show @end">
+          <a href="" class="menu-link">
+            <span class="menu-icon">
+              <i class="ki-outline ki-user fs-2"></i>
+            </span>
+            <span class="menu-title">User</span>
+            <span class="menu-arrow"></span>
+          </a>
         </div>
       </div>
     </div>
@@ -56,12 +74,12 @@
     <div class="">
       <div class="d-flex align-items-center" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-overflow="true" data-kt-menu-placement="top-start">
         <div class="d-flex flex-center cursor-pointer symbol symbol-circle symbol-40px">
-          <img src="https://ui-avatars.com/api/?bold=true&name=admin" alt="image" />
+          <img src="https://ui-avatars.com/api/?bold=true&name={{ auth.user.name }}" alt="image" />
         </div>
         <div class="d-flex flex-column align-items-start justify-content-center ms-3">
           <span class="text-gray-500 fs-8 fw-semibold">Hello</span>
           <span class="text-gray-800 fs-7 fw-bold text-hover-primary">
-            admin
+            {{ auth.user.name }}
           </span>
         </div>
       </div>
@@ -69,15 +87,15 @@
         <div class="menu-item px-3">
           <div class="menu-content d-flex align-items-center px-3">
             <div class="symbol symbol-50px me-5">
-              <img alt="Logo" src="https://ui-avatars.com/api/?bold=true&name=admin " />
+              <img alt="Logo" src="https://ui-avatars.com/api/?bold=true&name={{ auth.user.name }}" />
             </div>
             <div class="d-flex flex-column">
               <div class="d-flex flex-column">
                 <div class="fw-bold d-flex align-items-center fs-5">
-                  Fajar
+                  {{ auth.user.name }}
                 </div>
                 <span class="fw-semibold text-muted text-hover-primary fs-7">
-                  admin
+                  {{ auth.user.email }}
                 </span>
               </div>
             </div>

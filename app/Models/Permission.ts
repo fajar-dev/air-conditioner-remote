@@ -2,10 +2,11 @@ import { DateTime } from 'luxon'
 import uuid from 'uuid-wand'
 import { BaseModel, beforeCreate, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Building from './Building'
+import User from './User'
 
-export default class Room extends BaseModel {
+export default class Permission extends BaseModel {
   @beforeCreate()
-  public static async createUUID(model: Room) {
+  public static async createUUID(model: Permission) {
     model.id = uuid.v4()
   }
 
@@ -13,16 +14,17 @@ export default class Room extends BaseModel {
   public id: string
 
   @column()
-  public buildingId: string | undefined | null
+  public buildingId: string
 
   @belongsTo(() => Building)
   public building: BelongsTo<typeof Building>
 
   @column()
-  public name: string
+  public userId: string
 
-  @column()
-  public description: string | undefined | null
+  @belongsTo(() => User)
+  public user: BelongsTo<typeof User>
+
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

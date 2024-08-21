@@ -2,7 +2,6 @@ import type { ApplicationContract } from '@ioc:Adonis/Core/Application'
 import mqtt from 'mqtt'
 
 import Env from '@ioc:Adonis/Core/Env'
-import Item from 'App/Models/Item'
 
 /*
 |--------------------------------------------------------------------------
@@ -49,19 +48,20 @@ export default class MqttProvider {
   }
 
   public async boot() {
-    const MqttClient = this.app.container.use('Mqtt');
-
-    const items = await Item.all();
-    const topics = items.map(item => item.id)
-
-    topics.forEach((topic) => {
-      MqttClient.subscribe(topic, (err) => {
-        if (!err) {
-          console.log(`Subscribed to topic: ${topic}`)
-        } else {
-          console.error(`Failed to subscribe to topic: ${topic}`, err)
-        }
-      })
+    const MqttClient = this.app.container.use('Mqtt')
+    MqttClient.subscribe('lamp', (err) => {
+      if (!err) {
+        console.log('Subscribed to topic')
+      } else {
+        console.error('Failed to subscribe to topic:', err)
+      }
+    })
+    MqttClient.subscribe('lamp', (err) => {
+      if (!err) {
+        console.log('Subscribed to topic')
+      } else {
+        console.error('Failed to subscribe to topic:', err)
+      }
     })
 
     // Print received messages to the terminal
