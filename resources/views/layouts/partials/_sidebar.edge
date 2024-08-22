@@ -13,7 +13,7 @@
   <div class="app-sidebar-menu flex-column-fluid">
     <div id="kt_app_sidebar_menu_wrapper" class="hover-scroll-overlay-y my-5" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer" data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px">
       <div class="menu menu-column menu-rounded menu-sub-indention fw-bold px-6" id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
-        <div class="menu-item @if(title == 'Dashboard') here show @end">
+        <div class="menu-item @if(title == 'Dashboard') here show @endif">
           <a href="{{ route('dashboard') }}" class="menu-link">
             <span class="menu-icon">
               <i class="ki-outline ki-category fs-2"></i>
@@ -22,7 +22,7 @@
             <span class="menu-arrow"></span>  
           </a>
         </div>
-        <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(title === 'Data Master') here show @end">
+        <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(title === 'Data Master') here show @endif">
           <span class="menu-link">
             <span class="menu-icon">
               <i class="ki-outline ki-external-drive fs-2"></i>
@@ -32,7 +32,7 @@
           </span>
           <div class="menu-sub menu-sub-accordion">
             <div class="menu-item">
-              <a class="menu-link @if(title == 'Building') active @end" href="{{ route('master-data.building') }}">
+              <a class="menu-link @if(title == 'Building') active @endif" href="{{ route('master-data.building') }}">
                 <span class="menu-bullet">
                   <span class="bullet bullet-dot"></span>
                 </span>
@@ -40,7 +40,7 @@
               </a>
             </div>
             <div class="menu-item">
-              <a class="menu-link @if(title == 'Room') active @end" href="{{ route('master-data.room') }}">
+              <a class="menu-link @if(title == 'Room') active @endif" href="{{ route('master-data.room') }}">
                 <span class="menu-bullet">
                   <span class="bullet bullet-dot"></span>
                 </span>
@@ -49,7 +49,7 @@
             </div>
           </div>
         </div>
-        <div class="menu-item  @if(title == 'Remote') here show @end">
+        <div class="menu-item  @if(title == 'Remote') here show @endif">
           <a href="{{ route('remote') }}" class="menu-link">
             <span class="menu-icon">
               <i class="ki-outline ki-calculator fs-2"></i>
@@ -58,7 +58,7 @@
             <span class="menu-arrow"></span>
           </a>
         </div>
-        <div class="menu-item  @if(title == 'User') here show @end">
+        <div class="menu-item  @if(title == 'User') here show @endif">
           <a href="{{ route('user') }}" class="menu-link">
             <span class="menu-icon">
               <i class="ki-outline ki-user fs-2"></i>
