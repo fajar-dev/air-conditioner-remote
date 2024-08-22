@@ -6,11 +6,54 @@
 <div class="row gx-5 g-xl-10 g-xl-10">
   <div class="col-xl-12 mb-8">
     <div class="card card-flush">
-      {{-- <div class="card-header align-items-center py-5 gap-2 gap-md-5 justify-content-end">
+      <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+        <div>
+          <button data-bs-toggle="modal" data-bs-target="#add" class="btn btn-primary d-flex align-items-center"><i class="ki-duotone ki-plus fs-2"></i>
+            Add
+          </button>
+          <div class="modal fade" tabindex="-1" id="add">
+            <div class="modal-dialog modal-dialog-centered">
+                <form method="POST" action="{{ route('master-data.building.store') }}" class="modal-content" id="add">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Add New Building</h3>
+                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="required form-label">Name</label>
+                        <input type="text" name="name" class="form-control form-control-solid {{ flashMessages.get('errors.name')? 'is-invalid' : '' }}"  value="{{ flashMessages.get('name', '') ?? '' }}" placeholder="Building Name" required/>
+                          <div class="invalid-feedback">
+                            {{ flashMessages.get('errors.name') ?? '' }}
+                          </div>
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Description</label>
+                        <textarea name="description" class="form-control form-control-solid {{ flashMessages.get('errors.description')? 'is-invalid' : '' }}" rows="4" placeholder="type a description...">{{ flashMessages.get('description', '') ?? '' }}</textarea>
+                        <div class="invalid-feedback">
+                          {{ flashMessages.get('errors.description') ?? '' }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button id="add_submit" class="btn btn-primary me-2 flex-shrink-0">
+                          <span class="indicator-label" data-kt-translate="sign-in-submit">Save</span>
+                          <span class="indicator-progress">
+                            <span data-kt-translate="general-progress">Please wait...</span>
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                          </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+          </div>
+        </div>
         <form method="GET" class="card-title">
-          <input type="hidden" name="page" value="{{ request('page', 1) }}">
+          <input type="hidden" name="page" value="">
           <div class="d-flex align-items-center position-relative my-1">
-            <input type="text"  class="form-control form-control-solid  ps-5 rounded-0" name="q" value="{{ request('q') }}" placeholder="Search" />
+            <input type="text"  class="form-control form-control-solid  ps-5 rounded-0" name="q" value="" placeholder="Search" />
           </div>
           <button class="btn btn-primary btn-icon ms-2" type="submit" id="button-addon2">
             <span class="svg-icon svg-icon-3">
@@ -20,7 +63,7 @@
             </span>
           </button>
         </form>
-      </div> --}}
+      </div>
       <div class="card-body pt-0">
         <div class="table-responsive">
           <table  class="table table-row-dashed fs-6 gy-5">
@@ -41,7 +84,7 @@
                 </td>
                 <td>
                   <div class="d-flex">
-                    <div class="fs-6 text-muted">{{ data.description }}</div>
+                    <div class="fs-6 text-muted">{{ data.description ?? '-' }}</div>
                   </div>
                 </td>
                 <td class="text-end">
@@ -130,4 +173,63 @@
     </div>
   </div>
 </div>
+@each((item) in data)
+<div class="modal fade" tabindex="-1" id="edit{{ item.id }}">
+  <div class="modal-dialog modal-dialog-centered">
+      <form method="POST" action="{{ route('master-data.building.update', { id: item.id }) }}" class="modal-content" id="update{{ item.id }}">
+          <div class="modal-header">
+              <h3 class="modal-title">Edit Room</h3>
+              <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                  <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+              </div>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="required form-label">Name</label>
+              <input type="text" name="name" class="form-control form-control-solid {{ flashMessages.get('errors.name') ? 'is-invalid' : '' }}"  value="{{ item.name }}" placeholder="Room Name" required/>
+                <div class="invalid-feedback">
+                  {{ flashMessages.get('errors.name') ?? '' }}
+                </div>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Description</label>
+              <textarea name="description" class="form-control form-control-solid {{ flashMessages.get('errors.description') ? 'is-invalid' : '' }}" rows="4" placeholder="Type a description...">{{ item.description ?? '' }}</textarea>
+              <div class="invalid-feedback">
+                {{ flashMessages.get('errors.description') ?? '' }}
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+              <div class="d-flex flex-stack">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                <button id="update_submit_{{ item.id }}" class="btn btn-primary me-2 flex-shrink-0">
+                  <span class="indicator-label">Save</span>
+                  <span class="indicator-progress">
+                    Please wait...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                  </span>
+                </button>
+              </div>
+          </div>
+      </form>
+  </div>
+</div>
+@endeach
+
+<script>
+  document.getElementById('add').addEventListener('submit', function() {
+    var submitButton = document.getElementById('add_submit');
+    submitButton.querySelector('.indicator-label').style.display = 'none';
+    submitButton.querySelector('.indicator-progress').style.display = 'inline-block';
+    submitButton.setAttribute('disabled', 'disabled');
+  });
+  @each((item) in data)
+  document.getElementById('update{{ item.id }}').addEventListener('submit', function() {
+    var submitButton = document.getElementById('update_submit_{{ item.id }}');
+    submitButton.querySelector('.indicator-label').style.display = 'none';
+    submitButton.querySelector('.indicator-progress').style.display = 'inline-block';
+    submitButton.setAttribute('disabled', 'disabled');
+  });
+  @endeach
+</script>
 @endsection
