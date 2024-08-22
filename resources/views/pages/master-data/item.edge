@@ -1,6 +1,6 @@
 @layout('layouts/app')
 @set('title', 'Master Data')
-@set('subTitle', 'Room')
+@set('subTitle', 'Item')
 
 @section('content')
 <div class="row gx-5 g-xl-10 g-xl-10 px-lg-20">
@@ -13,31 +13,43 @@
           </button>
           <div class="modal fade" tabindex="-1" id="add">
             <div class="modal-dialog modal-dialog-centered">
-                <form method="POST" action="{{ route('master-data.room.store') }}" class="modal-content" id="add">
+                <form method="POST" action="{{ route('master-data.item.store') }}" class="modal-content" id="add">
                     <div class="modal-header">
-                        <h3 class="modal-title">Add New Room</h3>
+                        <h3 class="modal-title">Add New Item</h3>
                         <div class="btn btn-icon btn-sm btn-active-light-dark ms-2" data-bs-dismiss="modal" aria-label="Close">
                             <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
                         </div>
                     </div>
                     <div class="modal-body">
                       <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="required form-label">Name</label>
-                        <input type="text" name="name" class="form-control form-control-solid {{ flashMessages.get('errors.name')? 'is-invalid' : '' }}"  value="{{ flashMessages.get('name', '') ?? '' }}" placeholder="Room Name" required/>
-                          <div class="invalid-feedback">
-                            {{ flashMessages.get('errors.name') ?? '' }}
-                          </div>
-                      </div>
-                      <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="required form-label">Building</label>
-                        <select class="form-select form-select-solid" data-control="select2" name="building" data-placeholder="Select an building">
+                        <label for="exampleFormControlInput1" class="required form-label">Merk</label>
+                        <select class="form-select form-select-solid" data-control="select2" name="device" data-placeholder="Select a merk" required>
                           <option></option>
-                          @each(building in building)
-                          <option value="{{ building.id }}">{{ building.name }}</option>
+                          @each(device in device)
+                          <option value="{{ device.id }}">{{ device.merk }}</option>
                           @end
                         </select>
                         <div class="invalid-feedback">
-                          {{ flashMessages.get('errors.building') ?? '' }}
+                          {{ flashMessages.get('errors.device') ?? '' }}
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="required form-label">Asset Code</label>
+                        <input type="text" name="code" class="form-control form-control-solid {{ flashMessages.get('errors.code')? 'is-invalid' : '' }}"  value="{{ flashMessages.get('code', '') ?? '' }}" placeholder="Asset Code" required/>
+                          <div class="invalid-feedback">
+                            {{ flashMessages.get('errors.code') ?? '' }}
+                          </div>
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="required form-label">Location</label>
+                        <select class="form-select form-select-solid" data-control="select2" name="room" data-placeholder="Select a room" required>
+                          <option></option>
+                          @each(room in room)
+                          <option value="{{ room.id }}">{{ room.building.name }} - {{ room.name }}</option>
+                          @end
+                        </select>
+                        <div class="invalid-feedback">
+                          {{ flashMessages.get('errors.room') ?? '' }}
                         </div>
                       </div>
                       <div class="mb-3">
@@ -81,8 +93,9 @@
           <table  class="table table-row-dashed fs-6 gy-5">
             <thead>
               <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                <th>Name</th>
-                <th>Building</th>
+                <th>Asset Code</th>
+                <th>Merk</th>
+                <th>location</th>
                 <th>Description</th>
                 <th class="text-end">Action</th>
               </tr>
@@ -92,12 +105,17 @@
               <tr>
                 <td>
                   <div class="d-flex">
-                    <div class="fs-6">{{ data.name }}</div>
+                    <div class="fs-6 fw-bold">{{ data.code }}</div>
                   </div>
                 </td>
                 <td>
                   <div class="d-flex">
-                    <div class="fs-6">{{ data.building.name }}</div>
+                    <div class="fs-6">{{ data.device.merk }}</div>
+                  </div>
+                </td>
+                <td>
+                  <div class="d-flex">
+                    <div class="fs-6">{{ data.room.building.name }} - {{ data.room.name }}</div>
                   </div>
                 </td>
                 <td>
@@ -122,7 +140,7 @@
                       <a href="#" data-bs-toggle="modal" data-bs-target="#edit{{ data.id }}" class="menu-link px-3">Edit</a>
                     </div>
                     <div class="menu-item px-3">
-                      <a id="{{ route('master-data.room.destroy', {id: data.id}) }}" class="menu-link px-3 btn-del">Hapus</a>
+                      <a id="{{ route('master-data.item.destroy', {id: data.id}) }}" class="menu-link px-3 btn-del">Hapus</a>
                     </div>
                   </div>
                 </td>
@@ -194,31 +212,43 @@
 @each((item) in data)
 <div class="modal fade" tabindex="-1" id="edit{{ item.id }}">
   <div class="modal-dialog modal-dialog-centered">
-      <form method="POST" action="{{ route('master-data.room.update', { id: item.id }) }}" class="modal-content" id="update{{ item.id }}">
+      <form method="POST" action="{{ route('master-data.item.update', { id: item.id }) }}" class="modal-content" id="update{{ item.id }}">
           <div class="modal-header">
-              <h3 class="modal-title">Edit Room</h3>
+              <h3 class="modal-title">Edit Item</h3>
               <div class="btn btn-icon btn-sm btn-active-light-dark ms-2" data-bs-dismiss="modal" aria-label="Close">
                   <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
               </div>
           </div>
           <div class="modal-body">
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="required form-label">Name</label>
-              <input type="text" name="name" class="form-control form-control-solid {{ flashMessages.get('errors.name') ? 'is-invalid' : '' }}"  value="{{ item.name }}" placeholder="Room Name" required/>
-                <div class="invalid-feedback">
-                  {{ flashMessages.get('errors.name') ?? '' }}
-                </div>
-            </div>
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="required form-label">Building</label>
-              <select class="form-select form-select-solid" data-control="select2" name="building" data-placeholder="Select a building">
+              <label for="exampleFormControlInput1" class="required form-label">Device</label>
+              <select class="form-select form-select-solid" data-control="select2" name="device" data-placeholder="Select a device" required>
                 <option></option>
-                @each((building) in building)
-                <option value="{{ building.id }}" {{ item.building.id === building.id ? 'selected' : '' }}>{{ building.name }}</option>
+                @each((device) in device)
+                <option value="{{ device.id }}" {{ item.device.id === device.id ? 'selected' : '' }}>{{ device.merk }}</option>
                 @endeach
               </select>
               <div class="invalid-feedback">
                 {{ flashMessages.get('errors.building') ?? '' }}
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="required form-label">Asset Code</label>
+              <input type="text" name="code" class="form-control form-control-solid {{ flashMessages.get('errors.code') ? 'is-invalid' : '' }}"  value="{{ item.code }}" placeholder="Asset Code" required/>
+                <div class="invalid-feedback">
+                  {{ flashMessages.get('errors.code') ?? '' }}
+                </div>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="required form-label">Location</label>
+              <select class="form-select form-select-solid" data-control="select2" name="room" data-placeholder="Select a room" required>
+                <option></option>
+                @each((room) in room)
+                <option value="{{ room.id }}" {{ item.room.id === room.id ? 'selected' : '' }}>{{ room.building.name }} - {{ room.name }}</option>
+                @endeach
+              </select>
+              <div class="invalid-feedback">
+                {{ flashMessages.get('errors.room') ?? '' }}
               </div>
             </div>
             <div class="mb-3">

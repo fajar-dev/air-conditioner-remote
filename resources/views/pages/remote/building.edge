@@ -1,0 +1,28 @@
+@layout('layouts/app')
+@set('title', 'Remote')
+@set('subTitle', building.name)
+
+@section('content')
+<div class="row gx-5 g-md-10 g-xl-10 px-lg-20">
+  @each((item) in data)
+  <div class="col-md-6 col-xl-3">
+    <a href="{{ route('remote.room', { idBuilding:building.id, idRoom:item.id }) }}" class="card border-hover-dark">
+      <div class="card-header border-0 pt-9">
+        <div class="card-title m-0">
+          <div class="symbol symbol-50px w-50px bg-light p-3 d-flex justify-content-center">
+            <i class="ki-duotone ki-bank fs-1">
+            <span class="path1"></span>
+            <span class="path2"></span>
+            </i>
+          </div>
+        </div>
+      </div>
+      <div class="card-body p-9">
+        <div class="fs-2 fw-bold text-gray-900">{{ item.name }}</div>
+        <p class="text-gray-500 fw-semibold fs-5 mt-1 mb-7">{{ item.description ?? '-' }}</p>
+      </div>
+    </a>
+  </div>
+  @endeach
+</div>
+@endsection

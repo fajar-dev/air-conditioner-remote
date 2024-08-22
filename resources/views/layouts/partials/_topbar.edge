@@ -9,7 +9,7 @@
         <img alt="Logo" src="https://preview.keenthemes.com/metronic8/demo55/assets/media/logos/demo55-small-dark.svg" class="h-25px theme-dark-show" />
       </a>
     </div>
-    <div class="app-navbar flex-lg-grow-1 pb-5" id="kt_app_header_navbar">
+    <div class="app-navbar flex-lg-grow-1 pb-lg-5 px-lg-20" id="kt_app_header_navbar">
       <div class="app-navbar-item d-flex align-items-stretch flex-lg-grow-1 me-1 me-lg-0">
         <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
           <h1 class="d-flex flex-column justify-content-center fw-bold fs-3 m-0">{{ title }}</h1>
@@ -31,6 +31,12 @@
               </li>
               <li class="breadcrumb-item text-muted">{{ subTitle }}</li>
             @endif
+            @if (subSubTitle)
+              <li class="breadcrumb-item">
+                <span class="bullet bg-gray-500 w-5px h-2px"></span>
+              </li>
+              <li class="breadcrumb-item text-muted">{{ subSubTitle }}</li>
+            @endif
           </ul>
         </div>
       </div>
@@ -40,8 +46,8 @@
         </div>
         <div class="menu menu-sub menu-sub-dropdown menu-column w-100 w-sm-350px" data-kt-menu="true">
           <div class="card">
-            <div class="card-header">
-              <div class="card-title">Notification</div>
+            <div class="card-header bg-dark">
+              <div class="card-title text-white">Notification</div>
             </div>
             <div class="card-body py-5">
               <!--begin::Scroll-->

@@ -17,7 +17,7 @@ export default class Item extends BaseModel {
   public roomId: string
 
   @belongsTo(() => Room)
-  public role: BelongsTo<typeof Room>
+  public room: BelongsTo<typeof Room>
 
   @column()
   public deviceId: string
