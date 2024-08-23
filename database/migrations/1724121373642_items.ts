@@ -24,7 +24,9 @@ export default class extends BaseSchema {
       table.text('description').nullable()
       table.boolean('is_swing').defaultTo(false)
       table.boolean('is_active').defaultTo(false)
-      table.string('temperature').nullable()
+      table.integer('temperature')
+            .defaultTo(16)
+            .checkBetween([16, 30]) // Menambahkan batasan minimum dan maksimum
       table.time('schedule').nullable()
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })

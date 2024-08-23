@@ -56,7 +56,7 @@ export default class MqttProvider {
         console.error('Failed to subscribe to topic:', err)
       }
     })
-    MqttClient.subscribe('lamp', (err) => {
+    MqttClient.subscribe('BIRO-0808', (err) => {
       if (!err) {
         console.log('Subscribed to topic')
       } else {

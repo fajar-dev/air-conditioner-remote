@@ -6,24 +6,165 @@
 @section('content')
 <div class="row gx-5 g-md-10 g-xl-10 px-lg-20">
   @each((item) in data)
-  <div class="col-md-12 col-xl-6">
-    <a href="{{ route('remote.room', { idBuilding:building.id, idRoom:item.id }) }}" class="card border-hover-dark">
-      <div class="card-header border-0 pt-9">
-        <div class="card-title m-0">
-          <div class="symbol symbol-50px w-50px bg-light p-3 d-flex justify-content-center">
-            <i class="ki-duotone ki-bank fs-1">
-            <span class="path1"></span>
-            <span class="path2"></span>
-            </i>
-          </div>
+  <div class="col-lg-6">
+    <div class="loadDataButton card card-flush bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100" 
+         data-url="{{ item.id }}" 
+         data-building-id="{{ item.building_id }}" 
+         data-room-id="{{ item.room_id }}">
+      <div class="card-body d-flex align-items-end p-5">
+        <div class="d-flex align-items-center">
+          <span class="fs-3hx fw-bold">15 &deg;C</span>
         </div>
       </div>
-      <div class="card-body p-9">
-        <div class="fs-2 fw-bold text-gray-900">{{ item.name }}</div>
-        <p class="text-gray-500 fw-semibold fs-5 mt-1 mb-7">{{ item.description ?? '-' }}</p>
+      <div class="card-footer p-5" style="border-top: 1px solid rgba(255, 255, 255, 0.3);background: rgba(0, 0, 0, 0.15);">
+        <div class="fw-bold">
+          <span class="fs-2 d-block">{{ item.code }}</span>
+          <span class="opacity-50">{{ item.device.merk }}</span>
+        </div>
       </div>
-    </a>
+    </div>
   </div>
   @endeach
 </div>
+
+<div id="kt_drawer_chat" class="bg-body" data-kt-drawer="true" data-kt-drawer-name="chat" data-kt-drawer-activate="true" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'300px', 'md': '500px'}" data-kt-drawer-direction="end" data-kt-drawer-toggle=".loadDataButton" data-kt-drawer-close="#kt_drawer_chat_close">
+  <div class="card w-100 border-0 rounded-0" id="kt_drawer_chat_messenger">
+    <div class="card-header pe-5" id="header">
+      <div class="card-title title">
+        <div class="d-flex justify-content-center flex-column me-3">
+          <div class="d-flex align-items-center">
+            <span class="badge badge-success badge-circle w-10px h-10px me-2"></span>
+            <span class="fs-4 fw-bold text-gray-900 lh-1 code">BIRO-0808</span>
+          </div>
+          <div class="mb-0 lh-1">
+            <span class="fs-7 fw-semibold text-muted device">Samsung</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-toolbar">
+        <div class="btn btn-sm btn-icon btn-active-color-primary" id="kt_drawer_chat_close">
+          <i class="ki-outline ki-cross-square fs-2"></i>
+        </div>
+      </div>
+    </div>
+    <div class="card-body" id="kt_drawer_chat_messenger_body">
+      <div class="scroll-y me-n5 pe-5" data-kt-element="messages" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="500px" data-kt-scroll-dependencies="#kt_drawer_chat_messenger_header, #kt_drawer_chat_messenger_footer" data-kt-scroll-wrappers="#kt_drawer_chat_messenger_body" data-kt-scroll-offset="0px">
+        <div class="row pt-5">
+          <div class="col-7 d-flex align-items-stretch" id="item">
+            <div class="card flex-fill bg-info">
+              <div class="card-body">
+                <h1 class="fs-3 fw-bold text-white lh-1 code">-</h1>
+                <span class="fs-7 fw-semibold text-white device">-</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-5 d-flex align-items-stretch hover-elevate-up">
+            <button class="p-0 m-0 border-0 w-100 bg-transparent">
+              <div class="card flex-fill bg-dark">
+                <div class="card-body text-end">
+                  <span class="fs-7 fw-semibold text-white">Swing Mode</span>
+                  <div class="text-end mt-3">
+                    <i class="ki-duotone ki-arrows-circle fs-2hx">
+                      <span class="path1"></span>
+                      <span class="path2"></span>
+                      </i>
+                  </div>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>   
+        <div class="row mt-5">
+          <div class="col-12 d-flex align-items-stretch" id="display">
+            <div class="card flex-fill" style="background-color: #a2ff00">
+              <div class="card-body d-flex justify-content-between align-content-center">
+                <div>
+                  <span class="fs-7 fw-semibold text-black">Temperature</span>
+                  <h1 class="fs-4hx fw-extrabold text-dark lh-1 mt-5 temperature">-</h1>
+                </div>
+                <div class="py-2">
+                  <div class="me-2 mb-5">
+                    <a href="{{ route('login') }}" class="btn btn-icon bg-danger rounded-circle hover-scale">
+                      <i class="ki-outline ki-black-up fs-1 text-white"></i>
+                    </a>
+                  </div>
+                  <div class="me-2">
+                    <a href="{{ route('login') }}" class="btn btn-icon bg-primary rounded-circle hover-scale">
+                      <i class="ki-outline ki-black-down fs-1 text-white"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>     
+        <div class="row mt-5">
+          <div class="col-12 d-flex align-items-stretch" id="schedule">
+            <div class="card flex-fill" style="background-color: #fff700;">
+              <div class="card-body p-5 d-flex justify-content-between">
+                <div>
+                  <input type="time" class="form-control form-control-lg bg-transparent border-0 fs-1 fw-bold">
+                  <label for="" class="ms-5 fw-semibold text-black">Time Schedule</label>
+                </div>
+                <div>
+                  <button class="btn btn-light-warning btn-icon btn-sm bg-white">
+                    <i class="ki-duotone ki-arrows-loop fs-2">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                    </i>
+                  </button>
+                  <button class="btn btn-warning btn-sm">Set</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('.loadDataButton').on('click', function() {
+        var url = $(this).data('url');
+        var buildingId = "{{building.id}}";
+        var roomId = "{{room.id}}";
+
+        const dataurl = '/remote/' + buildingId + '/' + roomId + '/' + url;
+        $.ajax({
+            url: dataurl,
+            method: 'GET',
+            success: function(response) {
+                const data = response;
+                console.log(data);
+                $('#header .title .code').text(data.code);
+                $('#header .title .device').text(data.device.merk);
+                $('#item .code').text(data.code);
+                $('#item .device').first().text(data.device.merk);
+                $('#display .temperature').html(data.temperature + ' &deg;C');
+                
+                // Update the swing mode switch
+                if(data.is_swing) {
+                    $('#kt_drawer_chat_messenger_body .form-check-input').prop('checked', true);
+                } else {
+                    $('#kt_drawer_chat_messenger_body .form-check-input').prop('checked', false);
+                }
+                
+                // Set the time schedule input if it's available
+                if (data.schedule) {
+                    $('#schedule input[type="time"]').val(data.schedule);
+                } else {
+                    $('#schedule input[type="time"]').val('');
+                }
+            },
+            error: function() {
+                alert('Gagal memuat data');
+            }
+        });
+    });
+});
+</script>
+
 @endsection

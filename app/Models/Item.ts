@@ -38,7 +38,7 @@ export default class Item extends BaseModel {
   public isActive: boolean
 
   @column()
-  public temperature: string
+  public temperature: number
 
   @column()
   public schedule: DateTime | null | undefined
