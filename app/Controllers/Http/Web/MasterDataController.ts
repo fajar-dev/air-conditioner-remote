@@ -63,7 +63,11 @@ export default class MasterDataController {
   public async room({ view, request }: HttpContextContract) {
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)
-    const data = await Room.query().preload('building').orderBy('building_id').orderBy('name').paginate(page, limit)
+    const data = await Room.query()
+      .preload('building')
+      .orderBy('building_id')
+      .orderBy('name')
+      .paginate(page, limit)
     const building = await Building.all()
     return view.render('pages/master-data/room', { data, building })
   }
@@ -123,13 +127,13 @@ export default class MasterDataController {
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)
     const data = await Item.query()
-                .preload('device')
-                .preload('room', (query) => {
-                  query.preload('building')
-                })
-                .orderBy('room_id')
-                .orderBy('code')
-                .paginate(page, limit)
+      .preload('device')
+      .preload('room', (query) => {
+        query.preload('building')
+      })
+      .orderBy('room_id')
+      .orderBy('code')
+      .paginate(page, limit)
     const room = await Room.query().preload('building')
     const device = await Device.all()
     return view.render('pages/master-data/item', { data, room, device })

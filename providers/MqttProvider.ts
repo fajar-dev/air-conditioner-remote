@@ -1,8 +1,8 @@
 import type { ApplicationContract } from '@ioc:Adonis/Core/Application'
 import mqtt from 'mqtt'
-
 import Env from '@ioc:Adonis/Core/Env'
-
+import { DatabaseContract } from '@ioc:Adonis/Lucid/Database'
+import Logger from '@ioc:Adonis/Core/Logger'
 /*
 |--------------------------------------------------------------------------
 | Provider
@@ -41,6 +41,7 @@ export default class MqttProvider {
 
       client.on('error', (error) => {
         console.error('MQTT client error:', error)
+        Logger.error('MQTT client error: %j', error)
       })
 
       return client
@@ -49,24 +50,61 @@ export default class MqttProvider {
 
   public async boot() {
     const MqttClient = this.app.container.use('Mqtt')
-    MqttClient.subscribe('lamp', (err) => {
-      if (!err) {
-        console.log('Subscribed to topic')
-      } else {
-        console.error('Failed to subscribe to topic:', err)
-      }
-    })
-    MqttClient.subscribe('BIRO-0808', (err) => {
-      if (!err) {
-        console.log('Subscribed to topic')
-      } else {
-        console.error('Failed to subscribe to topic:', err)
-      }
-    })
+    const Database = this.app.container.use('Adonis/Lucid/Database') as DatabaseContract
 
-    // Print received messages to the terminal
-    MqttClient.on('message', (topic, message) => {
-      console.log(`Received message on topic ${topic}: ${message.toString()}`)
+    const items = await Database.from('items').select('code')
+    if (items) {
+      const temperature = items.map((item) => item.code + '/temperature')
+      temperature.forEach((topic) => {
+        MqttClient.subscribe(topic, (err) => {
+          if (!err) {
+            console.log(`Subscribed to topic ${topic}`)
+          } else {
+            Logger.error('Failed to subscribe to topic %s: %j', topic, err) // Log error to file
+          }
+        })
+      })
+
+      const status = items.map((item) => item.code + '/status')
+      status.forEach((topic) => {
+        MqttClient.subscribe(topic, (err) => {
+          if (!err) {
+            console.log(`Subscribed to topic ${topic}`)
+          } else {
+            Logger.error('Failed to subscribe to topic %s: %j', topic, err) // Log error to file
+          }
+        })
+      })
+    }
+
+    // Print received messages to the terminal and update the database
+    MqttClient.on('message', async (topic, message) => {
+      // Process only 'code/temperature' topics
+      if (topic.endsWith('/temperature')) {
+        const code = topic.split('/')[0]
+        const temperature = message.toString()
+
+        console.log(`Received message on topic ${topic}: ${temperature}`)
+
+        try {
+          await Database.from('items').where('code', code).update({ temperature })
+        } catch (error) {
+          Logger.error('Failed to update temperature for code %s: %j', code, error) // Log error to file
+        }
+      }
+
+      if (topic.endsWith('/status')) {
+        const code = topic.split('/')[0]
+        const isActive = message.toString() === 'true' // Convert string to boolean
+
+        console.log(`Received message on topic ${topic}: ${isActive}`)
+
+        try {
+          await Database.from('items').where('code', code).update({ is_active: isActive })
+        } catch (error) {
+          Logger.error('Failed to update status for code %s: %j', code, error) // Log error to file
+        }
+      }
     })
   }
 
