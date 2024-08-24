@@ -8,6 +8,22 @@ import mqttConfig from 'Config/mqtt'
 import ApiResponse from './ApiResponse'
 
 export default class MqttPublish {
+  private static client: mqtt.MqttClient | null = null // Updated type
+
+  /**
+   * Mengambil instance client MQTT, membuat koneksi jika belum ada
+   */
+  private static getClient(): mqtt.MqttClient {
+    if (!this.client) {
+      this.client = mqtt.connect(mqttConfig)
+      this.client.on('error', (err) => {
+        console.error('MQTT Client Error:', err)
+        this.client = null // Reset client untuk memungkinkan rekoneksi
+      })
+    }
+    return this.client
+  }
+
   /**
    * Publishes an MQTT message with a JSON payload
    *
@@ -32,9 +48,18 @@ export default class MqttPublish {
         command: irCode.command,
       }
       const messageJson = JSON.stringify(message)
-      const client = mqtt.connect(mqttConfig)
 
-      client.publish(data.code, messageJson)
+      const client = this.getClient()
+      if (!client) {
+        return ApiResponse.internalServerError(response, 'MQTT connection failed', null)
+      }
+
+      client.publish(data.code, messageJson, { qos: 0 }, (err) => {
+        if (err) {
+          return ApiResponse.internalServerError(response, 'Publish failed', err.message)
+        }
+      })
+
       return ApiResponse.ok(
         response,
         message,
