@@ -41,7 +41,7 @@ export default class Item extends BaseModel {
   public temperature: number
 
   @column()
-  public schedule: DateTime | null | undefined
+  public schedule: string | null | undefined
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

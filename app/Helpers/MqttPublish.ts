@@ -8,17 +8,19 @@ import mqttConfig from 'Config/mqtt'
 import ApiResponse from './ApiResponse'
 
 export default class MqttPublish {
-
   /**
    * Publishes an MQTT message with a JSON payload
    *
    * @param item - The MQTT topic or item to publish to
    * @param command - The command or variable to find the appropriate IR code
    */
-  public static async publish(response: HttpContextContract['response'], item: string, command: any) {
-
+  public static async publish(
+    response: HttpContextContract['response'],
+    item: string,
+    command: any
+  ) {
     try {
-      const data = await Item.findByOrFail('code', item)      
+      const data = await Item.findOrFail(item)
       const irCode = await IrCode.query()
         .preload('device')
         .where('deviceId', data.deviceId)
@@ -32,11 +34,14 @@ export default class MqttPublish {
       const messageJson = JSON.stringify(message)
       const client = mqtt.connect(mqttConfig)
 
-      client.publish(item, messageJson)
-      return ApiResponse.ok(response, message, 'Message published successfully')
-
+      client.publish(data.code, messageJson)
+      return ApiResponse.ok(
+        response,
+        message,
+        'Message topic ' + data.code + ' published successfully'
+      )
     } catch (error) {
-      return ApiResponse.internalServerError(response,  error.message, error.stack)
+      return ApiResponse.internalServerError(response, error.message, error.stack)
     }
   }
 }
