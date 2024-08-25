@@ -29,7 +29,7 @@ export default class MasterDataController {
     building.description = payload.description
     await building.save()
 
-    session.flash('success', 'Building has been updated successfully')
+    session.flash('success', 'Building has been created successfully')
     return response.redirect().toRoute('master-data.building')
   }
 
@@ -89,7 +89,7 @@ export default class MasterDataController {
     room.description = payload.description
     await room.save()
 
-    session.flash('success', 'Room has been updated successfully')
+    session.flash('success', 'Room has been created successfully')
     return response.redirect().toRoute('master-data.room')
   }
 
@@ -159,7 +159,7 @@ export default class MasterDataController {
     item.description = payload.description
     await item.save()
 
-    session.flash('success', 'Item has been updated successfully')
+    session.flash('success', 'Item has been created successfully')
     return response.redirect().toRoute('master-data.item')
   }
 

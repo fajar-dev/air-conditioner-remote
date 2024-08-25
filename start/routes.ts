@@ -95,10 +95,10 @@ Route.group(() => {
   .middleware('auth')
 
 Route.group(() => {
-  Route.get('/', 'Web/UsersController.building').as('user')
-  Route.post('/', 'Web/UsersController.Store').as('user.store')
-  Route.post('/:id/update', 'Web/UsersController.Update').as('user.update')
-  Route.get('/:id/delete', 'Web/UsersController.Destroy').as('user.destroy')
+  Route.get('/', 'Web/UsersController.index').as('user')
+  Route.post('/', 'Web/UsersController.store').as('user.store')
+  Route.post('/:id/update', 'Web/UsersController.update').as('user.update')
+  Route.get('/:id/delete', 'Web/UsersController.destroy').as('user.destroy')
 })
   .prefix('/user')
   .middleware('auth')

@@ -1,7 +1,15 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { column, beforeSave, BaseModel, beforeCreate } from '@ioc:Adonis/Lucid/Orm'
+import {
+  column,
+  beforeSave,
+  BaseModel,
+  beforeCreate,
+  hasMany,
+  HasMany,
+} from '@ioc:Adonis/Lucid/Orm'
 import uuid from 'uuid-wand'
+import Permission from './Permission'
 
 export default class User extends BaseModel {
   @beforeCreate()
@@ -45,4 +53,7 @@ export default class User extends BaseModel {
       user.password = await Hash.make(user.password)
     }
   }
+
+  @hasMany(() => Permission)
+  public permission: HasMany<typeof Permission>
 }
