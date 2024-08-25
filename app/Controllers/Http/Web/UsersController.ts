@@ -41,12 +41,14 @@ export default class UsersController {
     user.password = payload.password
     await user.save()
 
-    if (request.input('building')) {
-      for (let building of request.input('building')) {
-        const permission = new Permission()
-        permission.userId = user.id
-        permission.buildingId = building
-        await permission.save()
+    if (payload.role === 'admin') {
+      if (request.input('building')) {
+        for (let building of request.input('building')) {
+          const permission = new Permission()
+          permission.userId = user.id
+          permission.buildingId = building
+          await permission.save()
+        }
       }
     }
 

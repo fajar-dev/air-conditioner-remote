@@ -40,21 +40,23 @@ export default class ProfilesController {
 
   public async changePassword({ auth, request, session, response }: HttpContextContract) {
     const getUser = await auth.use('web').authenticate()
+
     const payload = await request.validate({
       schema: schema.create({
-        password: schema.string({}, [rules.confirmed(), rules.minLength(6)]),
+        password: schema.string({}, [rules.confirmed('password_confirmation'), rules.minLength(6)]),
       }),
       messages: {
         'password.required': 'Password is required',
         'password_confirmation.required': 'Password confirmation is required',
-        'password_confirmation.confirmed': 'Passwords do not match',
+        'password.confirmed': 'Passwords do not match',
       },
     })
+
     const user = await User.findOrFail(getUser.id)
     user.password = payload.password
     await user.save()
 
-    session.flash('success', 'Password has been change successfully')
-    return response.redirect().toRoute('profile')
+    session.flash('success', 'Password has been changed successfully')
+    return response.redirect().back()
   }
 }

@@ -44,6 +44,61 @@
 			</div>
 		</div>
 
+    <div class="modal fade" tabindex="-1" id="change-password">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h3 class="modal-title">Change Password</h3>
+                  <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                      <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                  </div>
+              </div>
+              <form xml:id="myForm" action="{{ route('profile.changePassword') }}" method="POST">
+                <div class="modal-body">
+                  <div class="mb-3">
+                    <div>
+                      <label class="required form-label" for="newPassword">New Password</label>
+                      <input type="password" class="form-control form-control-solid{{ flashMessages.get('errors.password') ? ' is-invalid' : '' }}" name="password" id="newPassword" placeholder="New Password" required>
+                    </div>
+                    <small class="text-danger">
+                      {{ flashMessages.get('errors.password') ?? '' }}
+                    </small>
+                  </div>
+                  <div class="mb-3">
+                    <div>
+                      <label class="required form-label" for="repeatPassword">Repeat Password</label>
+                      <input type="password" class="form-control form-control-solid{{ flashMessages.get('errors.password_confirmation') ? ' is-invalid' : '' }}" name="password_confirmation" id="repeatPassword" placeholder="Repeat Password" required>
+                    </div>
+                    <small class="text-danger">
+                      {{ flashMessages.get('errors.password_confirmation') ?? '' }}
+                    </small>
+                  </div>
+                </div>                
+                
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                  <button id="add_submit" class="btn btn-dark me-2 flex-shrink-0">
+                    <span class="indicator-label" data-kt-translate="sign-in-submit">Save</span>
+                    <span class="indicator-progress">
+                      <span data-kt-translate="general-progress">Please wait...</span>
+                      <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </span>
+                  </button>
+                </div>
+              </form>
+          </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById('change-password').addEventListener('submit', function() {
+        var submitButton = document.getElementById('add_submit');
+        submitButton.querySelector('.indicator-label').style.display = 'none';
+        submitButton.querySelector('.indicator-progress').style.display = 'inline-block';
+        submitButton.setAttribute('disabled', 'disabled');
+      });
+    </script>
+
     @include('layouts/partials/alert')
 
     <script src="https://preview.keenthemes.com/metronic8/demo55/assets/plugins/global/plugins.bundle.js"></script>
