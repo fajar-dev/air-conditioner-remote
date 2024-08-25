@@ -12,7 +12,7 @@ export default class extends BaseSchema {
       table.string('remember_me_token').nullable()
       table.string('verified_token').index().nullable()
       table.timestamp('verified_at', { useTz: true }).nullable()
-      table.enum('role', ['superadmin', 'admin'])
+      table.enum('role', ['superadmin', 'admin']).defaultTo('superadmin')
       table.timestamp('created_at', { useTz: true }).notNullable()
       table.timestamp('updated_at', { useTz: true }).notNullable()
     })

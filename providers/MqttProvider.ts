@@ -100,7 +100,13 @@ export default class MqttProvider {
         console.log(`Received message on topic ${topic}: ${isActive}`)
 
         try {
-          await Database.from('items').where('code', code).update({ is_active: isActive })
+          if (isActive === false) {
+            await Database.from('items')
+              .where('code', code)
+              .update({ is_active: isActive, temperature: 16 })
+          } else {
+            await Database.from('items').where('code', code).update({ is_active: isActive })
+          }
         } catch (error) {
           Logger.error('Failed to update status for code %s: %j', code, error) // Log error to file
         }
