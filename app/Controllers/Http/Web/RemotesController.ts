@@ -33,15 +33,24 @@ export default class RemotesController {
     return await view.render('pages/remote/room', { data, building, room })
   }
 
-  public async item({ params }: HttpContextContract) {
+  public async item({ params, response }: HttpContextContract) {
     const data = await Item.query()
       .preload('room')
       .preload('device')
-      .orderBy('code', 'asc')
       .where('room_id', params.idRoom)
       .where('id', params.idItem)
       .firstOrFail()
-    return data
+    return ApiResponse.ok(response, data, 'Item retrieved successfully')
+  }
+
+  public async itemLog({ params, response, request }: HttpContextContract) {
+    const page = request.input('page', 1)
+    const limit = request.input('limit', 15)
+    const data = await Log.query()
+      .where('item_id', params.idItem)
+      .orderBy('created_at')
+      .paginate(page, limit)
+    return ApiResponse.ok(response, data, 'Item log retrieved successfully')
   }
 
   public async itemSwing({ response, params }: HttpContextContract) {

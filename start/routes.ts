@@ -70,6 +70,9 @@ Route.group(() => {
   Route.get('/:idBuilding', 'Web/RemotesController.building').as('remote.building')
   Route.get('/:idBuilding/:idRoom', 'Web/RemotesController.room').as('remote.room')
   Route.get('/:idBuilding/:idRoom/:idItem', 'Web/RemotesController.item').as('remote.item')
+  Route.get('/:idBuilding/:idRoom/:idItem/log', 'Web/RemotesController.itemLog').as(
+    'remote.item.log'
+  )
   Route.post('/:idBuilding/:idRoom/:idItem/on', 'Web/RemotesController.itemOn').as('remote.item.on')
   Route.post('/:idBuilding/:idRoom/:idItem/off', 'Web/RemotesController.itemOff').as(
     'remote.item.off'

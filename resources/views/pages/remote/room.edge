@@ -7,16 +7,14 @@
 <div class="row gx-5 g-md-10 g-xl-10 px-lg-20">
   @each((item) in data)
   <div class="col-lg-6">
-    <div class="loadDataButton card card-flush bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100" 
-         data-url="{{ item.id }}" 
-         data-building-id="{{ item.building_id }}" 
-         data-room-id="{{ item.room_id }}">
-      <div class="card-body d-flex align-items-end p-5">
-        <div class="d-flex align-items-center">
-          <span class="fs-3hx fw-bold">15 &deg;C</span>
+    <div class="loadDataButton card card-flush bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100" data-url="{{ item.id }}">
+      <div class="card-body rounded-2 bg-secondary text-gray-900 border border-gray-900 p-5 d-flex align-items-center" style="solid rgba(255, 255, 255, 0.3);background: rgba(0, 0, 0, 0.15);">
+        <div class="symbol symbol-50px w-50px bg-white p-3 d-flex justify-content-center me-5 text-gray-500">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-fan" viewBox="0 0 16 16">
+            <path d="M10 3c0 1.313-.304 2.508-.8 3.4a2 2 0 0 0-1.484-.38c-.28-.982-.91-2.04-1.838-2.969a8 8 0 0 0-.491-.454A6 6 0 0 1 8 2c.691 0 1.355.117 1.973.332Q10 2.661 10 3m0 5q0 .11-.012.217c1.018-.019 2.2-.353 3.331-1.006a8 8 0 0 0 .57-.361 6 6 0 0 0-2.53-3.823 9 9 0 0 1-.145.64c-.34 1.269-.944 2.346-1.656 3.079.277.343.442.78.442 1.254m-.137.728a2 2 0 0 1-1.07 1.109c.525.87 1.405 1.725 2.535 2.377q.3.174.605.317a6 6 0 0 0 2.053-4.111q-.311.11-.641.199c-1.264.339-2.493.356-3.482.11ZM8 10c-.45 0-.866-.149-1.2-.4-.494.89-.796 2.082-.796 3.391q0 .346.027.678A6 6 0 0 0 8 14c.94 0 1.83-.216 2.623-.602a8 8 0 0 1-.497-.458c-.925-.926-1.555-1.981-1.836-2.96Q8.149 10 8 10M6 8q0-.12.014-.239c-1.02.017-2.205.351-3.34 1.007a8 8 0 0 0-.568.359 6 6 0 0 0 2.525 3.839 8 8 0 0 1 .148-.653c.34-1.267.94-2.342 1.65-3.075A2 2 0 0 1 6 8m-3.347-.632c1.267-.34 2.498-.355 3.488-.107.196-.494.583-.89 1.07-1.1-.524-.874-1.406-1.733-2.541-2.388a8 8 0 0 0-.594-.312 6 6 0 0 0-2.06 4.106q.309-.11.637-.199M8 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+          </svg>
         </div>
-      </div>
-      <div class="card-footer p-5" style="border-top: 1px solid rgba(255, 255, 255, 0.3);background: rgba(0, 0, 0, 0.15);">
         <div class="fw-bold">
           <span class="fs-2 d-block">{{ item.code }}</span>
           <span class="opacity-50">{{ item.device.merk }}</span>
@@ -48,77 +46,111 @@
       </div>
     </div>
     <div class="card-body" id="kt_drawer_chat_messenger_body">
-      <div class="scroll-y me-n5 pe-5" data-kt-element="messages" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="500px" data-kt-scroll-dependencies="#kt_drawer_chat_messenger_header, #kt_drawer_chat_messenger_footer" data-kt-scroll-wrappers="#kt_drawer_chat_messenger_body" data-kt-scroll-offset="0px">
-        <div class="row pt-5">
-          <div class="col-7 d-flex align-items-stretch" id="item">
-            <div class="card flex-fill bg-info">
-              <div class="card-body">
-                <h1 class="fs-3 fw-bold text-white lh-1 code">-</h1>
-                <span class="fs-7 fw-semibold text-white device">-</span>
-                <div class="text-end d-flex align-items-end justify-content-end align-content-end turn">
-                  
+      <div class="scroll-y me-n5 pe-5" data-kt-element="messages" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_drawer_chat_messenger_header, #kt_drawer_chat_messenger_footer" data-kt-scroll-wrappers="#kt_drawer_chat_messenger_body" data-kt-scroll-offset="0px">
+        <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
+          <li class="nav-item">
+              <a class="nav-link active" data-bs-toggle="tab" id="remote" href="#kt_tab_pane_1">Remote</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="tab" id="log" href="#kt_tab_pane_2">Log</a>
+          </li>
+        </ul>
+      
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
+            <div class="row pt-5">
+              <div class="col-7 d-flex align-items-stretch" id="item">
+                <div class="card flex-fill bg-info">
+                  <div class="card-body">
+                    <h1 class="fs-3 fw-bold text-white lh-1 code">-</h1>
+                    <span class="fs-7 fw-semibold text-white device">-</span>
+                    <div class="text-end d-flex align-items-end justify-content-end align-content-end turn">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-5 d-flex align-items-stretch hover-elevate-up">
+                <button class="p-0 m-0 border-0 w-100 bg-transparent" id="swing">
+                  <div class="card flex-fill bg-dark">
+                    <div class="card-body text-end">
+                      <span class="fs-7 fw-semibold text-white">Swing Mode</span>
+                      <div class="text-end mt-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-fan text-white" viewBox="0 0 16 16">
+                          <path d="M10 3c0 1.313-.304 2.508-.8 3.4a2 2 0 0 0-1.484-.38c-.28-.982-.91-2.04-1.838-2.969a8 8 0 0 0-.491-.454A6 6 0 0 1 8 2c.691 0 1.355.117 1.973.332Q10 2.661 10 3m0 5q0 .11-.012.217c1.018-.019 2.2-.353 3.331-1.006a8 8 0 0 0 .57-.361 6 6 0 0 0-2.53-3.823 9 9 0 0 1-.145.64c-.34 1.269-.944 2.346-1.656 3.079.277.343.442.78.442 1.254m-.137.728a2 2 0 0 1-1.07 1.109c.525.87 1.405 1.725 2.535 2.377q.3.174.605.317a6 6 0 0 0 2.053-4.111q-.311.11-.641.199c-1.264.339-2.493.356-3.482.11ZM8 10c-.45 0-.866-.149-1.2-.4-.494.89-.796 2.082-.796 3.391q0 .346.027.678A6 6 0 0 0 8 14c.94 0 1.83-.216 2.623-.602a8 8 0 0 1-.497-.458c-.925-.926-1.555-1.981-1.836-2.96Q8.149 10 8 10M6 8q0-.12.014-.239c-1.02.017-2.205.351-3.34 1.007a8 8 0 0 0-.568.359 6 6 0 0 0 2.525 3.839 8 8 0 0 1 .148-.653c.34-1.267.94-2.342 1.65-3.075A2 2 0 0 1 6 8m-3.347-.632c1.267-.34 2.498-.355 3.488-.107.196-.494.583-.89 1.07-1.1-.524-.874-1.406-1.733-2.541-2.388a8 8 0 0 0-.594-.312 6 6 0 0 0-2.06 4.106q.309-.11.637-.199M8 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </div>   
+            <div class="row mt-5">
+              <div class="col-12 d-flex align-items-stretch" id="display">
+                <div class="card flex-fill" style="background-color: #a2ff00">
+                  <div class="card-body d-flex justify-content-between align-content-center">
+                    <div>
+                      <span class="fs-7 fw-semibold text-black">Temperature</span>
+                      <h1 class="fs-4hx fw-extrabold text-dark lh-1 mt-5 temperature">-</h1>
+                    </div>
+                    <div class="py-2">
+                      <div class="me-2 mb-5">
+                        <button class="btn btn-icon bg-danger rounded-circle hover-scale" id="up">
+                          <i class="ki-outline ki-black-up fs-1 text-white"></i>
+                        </button>
+                      </div>
+                      <div class="me-2">
+                        <button class="btn btn-icon bg-primary rounded-circle hover-scale" id="down">
+                          <i class="ki-outline ki-black-down fs-1 text-white"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>     
+            <div class="row mt-5">
+              <div class="col-12 d-flex align-items-stretch" id="schedule">
+                <div class="card flex-fill" style="background-color: #fff700;">
+                  <div class="card-body p-5 d-flex justify-content-between">
+                    <div>
+                      <input type="time" class="form-control form-control-lg bg-transparent border-0 fs-1 fw-bold" id="time">
+                      <label for="" class="ms-5 fw-semibold text-black">Time Schedule</label>
+                    </div>
+                    <div>
+                      <button class="btn btn-light-warning btn-icon btn-sm bg-white" id="reset">
+                        <i class="ki-duotone ki-arrows-loop fs-2">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                        </i>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-5 d-flex align-items-stretch hover-elevate-up">
-            <button class="p-0 m-0 border-0 w-100 bg-transparent" id="swing">
-              <div class="card flex-fill bg-dark">
-                <div class="card-body text-end">
-                  <span class="fs-7 fw-semibold text-white">Swing Mode</span>
-                  <div class="text-end mt-8">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-fan text-white" viewBox="0 0 16 16">
-                      <path d="M10 3c0 1.313-.304 2.508-.8 3.4a2 2 0 0 0-1.484-.38c-.28-.982-.91-2.04-1.838-2.969a8 8 0 0 0-.491-.454A6 6 0 0 1 8 2c.691 0 1.355.117 1.973.332Q10 2.661 10 3m0 5q0 .11-.012.217c1.018-.019 2.2-.353 3.331-1.006a8 8 0 0 0 .57-.361 6 6 0 0 0-2.53-3.823 9 9 0 0 1-.145.64c-.34 1.269-.944 2.346-1.656 3.079.277.343.442.78.442 1.254m-.137.728a2 2 0 0 1-1.07 1.109c.525.87 1.405 1.725 2.535 2.377q.3.174.605.317a6 6 0 0 0 2.053-4.111q-.311.11-.641.199c-1.264.339-2.493.356-3.482.11ZM8 10c-.45 0-.866-.149-1.2-.4-.494.89-.796 2.082-.796 3.391q0 .346.027.678A6 6 0 0 0 8 14c.94 0 1.83-.216 2.623-.602a8 8 0 0 1-.497-.458c-.925-.926-1.555-1.981-1.836-2.96Q8.149 10 8 10M6 8q0-.12.014-.239c-1.02.017-2.205.351-3.34 1.007a8 8 0 0 0-.568.359 6 6 0 0 0 2.525 3.839 8 8 0 0 1 .148-.653c.34-1.267.94-2.342 1.65-3.075A2 2 0 0 1 6 8m-3.347-.632c1.267-.34 2.498-.355 3.488-.107.196-.494.583-.89 1.07-1.1-.524-.874-1.406-1.733-2.541-2.388a8 8 0 0 0-.594-.312 6 6 0 0 0-2.06 4.106q.309-.11.637-.199M8 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
-                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                    </svg>
-                  </div>
-                </div>
+          <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
+              <!-- Tabel Container -->
+              <div id="table-container" class=" mt-4">
+                <table id="logTable" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data akan diisi dengan JavaScript -->
+                    </tbody>
+                </table>
+                <!-- Pagination -->
+                <nav aria-label="Page navigation">
+                    <ul id="pagination" class="pagination justify-content-end">
+                        <!-- Pagination items akan diisi dengan JavaScript -->
+                    </ul>
+                </nav>
               </div>
-            </button>
-          </div>
-        </div>   
-        <div class="row mt-5">
-          <div class="col-12 d-flex align-items-stretch" id="display">
-            <div class="card flex-fill" style="background-color: #a2ff00">
-              <div class="card-body d-flex justify-content-between align-content-center">
-                <div>
-                  <span class="fs-7 fw-semibold text-black">Temperature</span>
-                  <h1 class="fs-4hx fw-extrabold text-dark lh-1 mt-5 temperature">-</h1>
-                </div>
-                <div class="py-2">
-                  <div class="me-2 mb-5">
-                    <button class="btn btn-icon bg-danger rounded-circle hover-scale" id="up">
-                      <i class="ki-outline ki-black-up fs-1 text-white"></i>
-                    </button>
-                  </div>
-                  <div class="me-2">
-                    <button class="btn btn-icon bg-primary rounded-circle hover-scale" id="down">
-                      <i class="ki-outline ki-black-down fs-1 text-white"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>     
-        <div class="row mt-5">
-          <div class="col-12 d-flex align-items-stretch" id="schedule">
-            <div class="card flex-fill" style="background-color: #fff700;">
-              <div class="card-body p-5 d-flex justify-content-between">
-                <div>
-                  <input type="time" class="form-control form-control-lg bg-transparent border-0 fs-1 fw-bold" id="time">
-                  <label for="" class="ms-5 fw-semibold text-black">Time Schedule</label>
-                </div>
-                <div>
-                  <button class="btn btn-light-warning btn-icon btn-sm bg-white" id="reset">
-                    <i class="ki-duotone ki-arrows-loop fs-2">
-                    <span class="path1"></span>
-                    <span class="path2"></span>
-                    </i>
-                  </button>
-                </div>
-              </div>
-            </div>
           </div>
         </div> 
       </div>
@@ -143,13 +175,14 @@
       function loadData(url) {
           var buildingId = "{{building.id}}";
           var roomId = "{{room.id}}";
-  
-          const baseurl = '/remote/' + buildingId + '/' + roomId + '/' + url;
+          var baseurl = '/remote/' + buildingId + '/' + roomId + '/' + url;
+          fetchData(baseurl, 1)
+          
           $.ajax({
               url: baseurl,
               method: 'GET',
               success: function(response) {
-                  const data = response;
+                  const data = response.data;
                   console.log(data);
                   $('#header .title .code').text(data.code);
                   $('#header .title .device').text(data.device.merk);
@@ -282,10 +315,74 @@
                   });
               },
               error: function(xhr) {
-                  showToast(`Error: Gagal memuat data'`);
+                  showToast(`Error: Gagal memuat data`);
+              }
+          });
+          
+          $('#remote').off('click').on('click', function() {
+            loadData(url);
+          });
+      }
+
+      let currentPage = 1;
+      const rowsPerPage = 10; // Menyesuaikan dengan meta.per_page jika diperlukan
+      function fetchData(baseurl, page) {
+          const logURL = `${baseurl}/log?page=${page}`;
+          $.ajax({
+              url: logURL,
+              method: 'GET',
+              success: function(response) {
+                  if (response.success) {
+                      const data = response.data.data;
+                      const meta = response.data.meta;
+                      const totalPages = meta.last_page;
+
+                      // Mengisi tabel
+                      const tableBody = $('#logTable tbody');
+                      tableBody.empty();
+                      data.forEach(item => {
+                          tableBody.append(`
+                              <tr>
+                                <td>${item.is_active ? 'Active' : 'Inactive'}</td>
+                                <td>${new Date(item.created_at).toLocaleString()}</td>
+                              </tr>
+                          `);
+                      });
+
+                      // Mengisi pagination
+                      const pagination = $('#pagination');
+                      pagination.empty();
+                      
+                      if (meta.current_page > 1) {
+                          pagination.append(`<li class="page-item"><a class="page-link" href="#" data-page="${meta.current_page - 1}" data-url="${baseurl}">Previous</a></li>`);
+                      }
+                      
+                      for (let i = 1; i <= totalPages; i++) {
+                          pagination.append(`<li class="page-item ${i === meta.current_page ? 'active' : ''}"><a class="page-link" href="#" data-url="${baseurl}" data-page="${i}">${i}</a></li>`);
+                      }
+                      
+                      if (meta.current_page < totalPages) {
+                          pagination.append(`<li class="page-item"><a class="page-link" href="#" data-page="${meta.current_page + 1}" data-url="${baseurl}">Next</a></li>`);
+                      }
+                  } else {
+                      showToast('Error: Failed to load data');
+                  }
+              },
+              error: function(xhr) {
+                  showToast(`Error: Failed to load data'}`);
               }
           });
       }
+      // fetchData(currentPage);
+      $(document).on('click', '#pagination .page-link', function(e) {
+          e.preventDefault();
+          const page = $(this).data('page');
+          const url  = $(this).data('url');
+          if (page && page !== currentPage) {
+              currentPage = page;
+              fetchData(url, currentPage);
+          }
+      });
   
       $('.loadDataButton').on('click', function() {
           var url = $(this).data('url');
