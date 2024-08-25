@@ -8,6 +8,7 @@
 
 Entity Relationship Diagram (ERD) :
 
+![image](https://github.com/user-attachments/assets/0279620e-f6bd-48fa-8ce3-e23441f3cd2f)
 
 ## Installation
 
