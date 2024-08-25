@@ -39,10 +39,7 @@ export default class User extends BaseModel {
   public verifiedAt: Date
 
   @column()
-  public roleId: string | undefined | null
-
-  @belongsTo(() => Role)
-  public role: BelongsTo<typeof Role>
+  public role: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
