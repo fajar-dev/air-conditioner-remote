@@ -6,8 +6,7 @@ import Item from 'App/Models/Item'
 import Room from 'App/Models/Room'
 
 export default class MasterDataController {
-  public async building({ view, auth, request }: HttpContextContract) {
-    await auth.use('web').authenticate()
+  public async building({ view, request }: HttpContextContract) {
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)
     const data = await Building.query().paginate(page, limit)

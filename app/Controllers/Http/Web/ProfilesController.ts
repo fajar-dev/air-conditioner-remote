@@ -3,8 +3,7 @@ import { rules, schema } from '@ioc:Adonis/Core/Validator'
 import User from 'App/Models/User'
 
 export default class ProfilesController {
-  public async index({ auth, view }: HttpContextContract) {
-    await auth.use('web').authenticate()
+  public async index({ view }: HttpContextContract) {
     return await view.render('users/profile/index')
   }
 
