@@ -104,8 +104,6 @@ Route.group(() => {
   .middleware('auth')
 
 Route.group(() => {
-  Route.get('/', 'Web/ProfilesController.index').as('profile')
-  Route.post('/', 'Web/ProfilesController.update').as('profile.update')
   Route.post('/change-password', 'Web/ProfilesController.changePassword').as(
     'profile.changePassword'
   )
