@@ -81,8 +81,10 @@ export default class UsersController {
     }
     await user.save()
 
-    const userPermission = await Permission.findByOrFail('user_id', params.id)
-    await userPermission.delete()
+    const userPermission = await Permission.findBy('user_id', params.id)
+    if (userPermission) {
+      await userPermission.delete()
+    }
     if (payload.role === 'admin') {
       if (request.input('building')) {
         for (let building of request.input('building')) {

@@ -77,7 +77,7 @@
                 
                 <div class="modal-footer">
                   <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                  <button id="add_submit" class="btn btn-dark me-2 flex-shrink-0">
+                  <button id="password_submit" class="btn btn-dark me-2 flex-shrink-0">
                     <span class="indicator-label" data-kt-translate="sign-in-submit">Save</span>
                     <span class="indicator-progress">
                       <span data-kt-translate="general-progress">Please wait...</span>
@@ -92,7 +92,7 @@
 
     <script>
       document.getElementById('change-password').addEventListener('submit', function() {
-        var submitButton = document.getElementById('add_submit');
+        var submitButton = document.getElementById('password_submit');
         submitButton.querySelector('.indicator-label').style.display = 'none';
         submitButton.querySelector('.indicator-progress').style.display = 'inline-block';
         submitButton.setAttribute('disabled', 'disabled');

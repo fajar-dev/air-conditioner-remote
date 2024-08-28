@@ -1,7 +1,7 @@
 // app/Helpers/Response.ts
 
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import IrCode from 'App/Models/IrCode'
+// import IrCode from 'App/Models/IrCode'
 import Item from 'App/Models/Item'
 import mqtt from 'mqtt'
 import mqttConfig from 'Config/mqtt'
@@ -37,24 +37,26 @@ export default class MqttPublish {
   ) {
     try {
       const data = await Item.findOrFail(item)
-      const irCode = await IrCode.query()
-        .preload('device')
-        .where('deviceId', data.deviceId)
-        .where('variable', command)
-        .firstOrFail()
+      // const irCode = await IrCode.query()
+      //   .preload('device')
+      //   .where('deviceId', data.deviceId)
+      //   .where('variable', command)
+      //   .firstOrFail()
 
-      const message = {
-        address: irCode.device.address,
-        command: irCode.command,
-      }
-      const messageJson = JSON.stringify(message)
+      // const message = {
+      //   address: irCode.device.address,
+      //   command: irCode.command,
+      // }
+      // const messageJson = JSON.stringify(message)
+
+      // const messageJson = irCode.device.address + irCode.command.substring(2)
 
       const client = this.getClient()
       if (!client) {
         return ApiResponse.internalServerError(response, 'MQTT connection failed', null)
       }
 
-      client.publish(data.code, messageJson, { qos: 0 }, (err) => {
+      client.publish(data.code, command, { qos: 0 }, (err) => {
         if (err) {
           return ApiResponse.internalServerError(response, 'Publish failed', err.message)
         }
@@ -62,7 +64,7 @@ export default class MqttPublish {
 
       return ApiResponse.ok(
         response,
-        message,
+        command,
         'Message topic ' + data.code + ' published successfully'
       )
     } catch (error) {

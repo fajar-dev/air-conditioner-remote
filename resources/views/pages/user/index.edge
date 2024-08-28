@@ -223,57 +223,73 @@
 @each((item) in data)
 <div class="modal fade" tabindex="-1" id="edit{{ item.id }}">
   <div class="modal-dialog modal-dialog-centered">
-      <form method="POST" action="{{ route('user.update', { id: item.id }) }}" class="modal-content" id="update{{ item.id }}">
-          <div class="modal-header">
-              <h3 class="modal-title">Edit Room</h3>
-              <div class="btn btn-icon btn-sm btn-active-light-dark ms-2" data-bs-dismiss="modal" aria-label="Close">
-                  <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+    <form method="POST" action="{{ route('user.update', { id: item.id }) }}" class="modal-content" id="update{{ item.id }}">
+      <input type="hidden" name="_method" value="PUT">
+      <div class="modal-header">
+          <h3 class="modal-title">Edit User</h3>
+          <div class="btn btn-icon btn-sm btn-active-light-dark ms-2" data-bs-dismiss="modal" aria-label="Close">
+              <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+          </div>
+      </div>
+      <div class="modal-body">
+          <div class="mb-3">
+              <label for="name" class="required form-label">Name</label>
+              <input type="text" name="name" class="form-control form-control-solid {{ session.has('errors.name') ? 'is-invalid' : '' }}" value="{{ session.get('data.name') || item.name }}" placeholder="Name" required />
+              <div class="invalid-feedback">
+                  {{ session.get('errors.name') }}
               </div>
           </div>
-          {{-- <div class="modal-body">
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="required form-label">Name</label>
-              <input type="text" name="name" class="form-control form-control-solid {{ flashMessages.get('errors.name') ? 'is-invalid' : '' }}"  value="{{ item.name }}" placeholder="Room Name" required/>
-                <div class="invalid-feedback">
-                  {{ flashMessages.get('errors.name') ?? '' }}
-                </div>
-            </div>
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="required form-label">Role</label>
-              <select class="form-select form-select-solid" name="role" data-placeholder="Select a role" id="role-select">
-                <option selected disabled>Select a role</option>
-                <option {{ flashMessages.get('role') === 'superadmin' ? 'selected' : '' }}  value="superadmin">Superadmin</option>
-                <option {{ flashMessages.get('role') === 'admin' ? 'selected' : '' }} value="admin">admin</option>
+          <div class="mb-3">
+              <label for="role" class="required form-label">Role</label>
+              <select class="form-select form-select-solid {{ session.has('errors.role') ? 'is-invalid' : '' }}" name="role" data-placeholder="Select a role" id="role-select" required>
+                  <option disabled {{ session.get('data.role') ? '' : 'selected' }}>Select a role</option>
+                  <option value="superadmin" {{ (session.get('data.role') || item.role) === 'superadmin' ? 'selected' : '' }}>Superadmin</option>
+                  <option value="admin" {{ (session.get('data.role') || item.role) === 'admin' ? 'selected' : '' }}>Admin</option>
               </select>
               <div class="invalid-feedback">
-                {{ flashMessages.get('errors.building') ?? '' }}
+                  {{ session.get('errors.role') }}
               </div>
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="required form-label">Building</label>
-              <select class="form-select form-select-solid" data-control="select2" name="building" data-placeholder="Select a building">
-                <option></option>
-                @each((building) in building)
-                <option value="{{ building.id }}" {{ item.building.id === building.id ? 'selected' : '' }}>{{ building.name }}</option>
-                @endeach
+          </div>
+          <div class="mb-3">
+              <label for="building" class="required form-label">Building</label>
+              <select class="form-select form-select-solid {{ session.has('errors.building') ? 'is-invalid' : '' }}" data-control="select2" name="building" data-placeholder="Select a building">
+                  <option></option>
+                  @each((building) in buildings)
+                      <option value="{{ building.id }}" {{ (session.get('data.building') || item.building?.id) == building.id ? 'selected' : '' }}>{{ building.name }}</option>
+                  @endeach
               </select>
               <div class="invalid-feedback">
-                {{ flashMessages.get('errors.building') ?? '' }}
+                  {{ session.get('errors.building') }}
               </div>
-            </div>
-          </div> --}}
-          <div class="modal-footer">
-              <div class="d-flex flex-stack">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                <button id="update_submit_{{ item.id }}" class="btn btn-dark me-2 flex-shrink-0">
+          </div>
+          <div class="mb-3">
+              <label for="email" class="required form-label">Email</label>
+              <input type="email" name="email" class="form-control form-control-solid {{ session.has('errors.email') ? 'is-invalid' : '' }}" value="{{ session.get('data.email') || item.email }}" placeholder="Email Address" required />
+              <div class="invalid-feedback">
+                  {{ session.get('errors.email') }}
+              </div>
+          </div>
+          <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" name="password" class="form-control form-control-solid {{ session.has('errors.password') ? 'is-invalid' : '' }}" placeholder="Password" />
+              <div class="invalid-feedback">
+                  {{ session.get('errors.password') }}
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <div class="d-flex flex-stack">
+              <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+              <button id="update_submit_{{ item.id }}" class="btn btn-dark me-2 flex-shrink-0">
                   <span class="indicator-label">Save</span>
                   <span class="indicator-progress">
-                    Please wait...
-                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                      Please wait...
+                      <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                   </span>
-                </button>
-              </div>
+              </button>
           </div>
-      </form>
+      </div>
+    </form>
   </div>
 </div>
 @endeach
