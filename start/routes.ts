@@ -63,7 +63,7 @@ Route.group(() => {
   )
 })
   .prefix('/master-data')
-  .middleware('auth')
+  .middleware(['auth', 'role:superadmin'])
 
 Route.group(() => {
   Route.get('/', 'Web/RemotesController.index').as('remote')
@@ -101,7 +101,7 @@ Route.group(() => {
   Route.get('/:id/delete', 'Web/UsersController.destroy').as('user.destroy')
 })
   .prefix('/user')
-  .middleware('auth')
+  .middleware(['auth', 'role:superadmin'])
 
 Route.group(() => {
   Route.post('/change-password', 'Web/ProfilesController.changePassword').as(
