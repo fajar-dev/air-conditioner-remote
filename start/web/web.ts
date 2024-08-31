@@ -4,7 +4,6 @@ export default () => {
   Route.group(() => {
     Route.get('/register', 'Web/AuthController.register').as('register')
     Route.post('/register', 'Web/AuthController.registerSubmit').as('register.submit')
-    Route.get('/verify/:token', 'Web/AuthController.verify').as('verify')
     Route.get('/login', 'Web/AuthController.login').as('login')
     Route.post('/login', 'Web/AuthController.loginSubmit').as('login.submit')
     Route.get('/forget', 'Web/AuthController.forget').as('forget')
