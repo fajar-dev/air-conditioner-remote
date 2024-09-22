@@ -51,7 +51,7 @@ export default class AuthController {
       .insert({
         email: user.email,
         token: token,
-        expires_at: new Date(Date.now() + 3600000), // 1 hour expiration
+        expires_at: new Date(Date.now() + 3600000),
       })
 
     await Mail.send((message) => {

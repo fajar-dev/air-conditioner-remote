@@ -1,9 +1,11 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 export default () => {
+  Route.get('/', ({ response }) => {
+    return response.redirect().toRoute('login')
+  })
+
   Route.group(() => {
-    Route.get('/register', 'Web/AuthController.register').as('register')
-    Route.post('/register', 'Web/AuthController.registerSubmit').as('register.submit')
     Route.get('/login', 'Web/AuthController.login').as('login')
     Route.post('/login', 'Web/AuthController.loginSubmit').as('login.submit')
     Route.get('/forget', 'Web/AuthController.forget').as('forget')
