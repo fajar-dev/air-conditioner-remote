@@ -6,6 +6,7 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid('id').primary()
+      table.string('key').nullable()
       table
         .uuid('room_id')
         .references('id')
@@ -25,6 +26,7 @@ export default class extends BaseSchema {
       table.boolean('is_active').defaultTo(false)
       table.integer('temperature').defaultTo(16).checkBetween([16, 30]) // Menambahkan batasan minimum dan maksimum
       table.time('schedule').nullable()
+      table.boolean('is_publish').defaultTo(false)
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

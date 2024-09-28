@@ -3,15 +3,20 @@ import uuid from 'uuid-wand'
 import { BaseModel, beforeCreate, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Room from './Room'
 import Device from './Device'
+import { random } from 'App/Helpers/Random' // Impor fungsi dari Helpers/random.ts
 
 export default class Item extends BaseModel {
   @beforeCreate()
   public static async createUUID(model: Item) {
     model.id = uuid.v4()
+    model.key = random(6)
   }
 
   @column({ isPrimary: true })
   public id: string
+
+  @column()
+  public key: string
 
   @column()
   public roomId: string
@@ -42,6 +47,9 @@ export default class Item extends BaseModel {
 
   @column()
   public schedule: string | null | undefined
+
+  @column()
+  public isPublish: boolean
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -79,6 +79,9 @@ export default () => {
     Route.post('/:idBuilding/:idRoom/:idItem/time-set', 'Web/RemotesController.itemTimeSet').as(
       'remote.item.time-set'
     )
+    Route.post('/:idBuilding/:idRoom/:idItem/share', 'Web/RemotesController.itemShare').as(
+      'remote.item.share'
+    )
   })
     .prefix('/remote')
     .middleware('auth')

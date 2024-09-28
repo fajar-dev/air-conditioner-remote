@@ -155,4 +155,23 @@ export default class RemotesController {
       return ApiResponse.internalServerError(response, error.message, error.stack)
     }
   }
+
+  public async itemShare({ response, params, request }: HttpContextContract) {
+    try {
+      const data = await Item.findOrFail(params.idItem)
+      const payload = await request.validate({
+        schema: schema.create({
+          switch: schema.boolean(),
+        }),
+        messages: {
+          'switch.required': 'The switch is required.',
+        },
+      })
+      data.isPublish = payload.switch
+      await data.save()
+      return ApiResponse.ok(response, null, 'Publish Status Has been updated successfully')
+    } catch (error) {
+      return ApiResponse.internalServerError(response, error.message, error.stack)
+    }
+  }
 }
