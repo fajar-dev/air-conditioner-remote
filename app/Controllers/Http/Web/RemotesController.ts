@@ -9,8 +9,14 @@ import Room from 'App/Models/Room'
 import { random } from 'App/Helpers/Random'
 
 export default class RemotesController {
-  public async index({ view }: HttpContextContract) {
-    const data = await Building.all()
+  public async index({ view, auth }: HttpContextContract) {
+    const user = await auth.use('web').authenticate()
+    const data =
+      user.role === 'superadmin'
+        ? await Building.all()
+        : await Building.query().whereHas('permission', (permissionQuery) => {
+            permissionQuery.where('user_id', user.id)
+          })
     return await view.render('pages/remote/index', { data })
   }
 

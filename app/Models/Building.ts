@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import uuid from 'uuid-wand'
-import { BaseModel, beforeCreate, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, beforeCreate, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import Permission from './Permission'
 
 export default class Building extends BaseModel {
   @beforeCreate()
@@ -22,4 +23,7 @@ export default class Building extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @hasMany(() => Permission)
+  public permission: HasMany<typeof Permission>
 }

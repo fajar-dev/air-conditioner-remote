@@ -25,7 +25,6 @@ export default class Permission extends BaseModel {
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>
 
-
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
