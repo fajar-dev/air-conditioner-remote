@@ -3,7 +3,7 @@ import uuid from 'uuid-wand'
 import { BaseModel, beforeCreate, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Room from './Room'
 import Device from './Device'
-import { random } from 'App/Helpers/Random' // Impor fungsi dari Helpers/random.ts
+import { random } from 'App/Helpers/Random'
 
 export default class Item extends BaseModel {
   @beforeCreate()

@@ -7,6 +7,7 @@
   "assets/images/keenicons-solid.svg?812fv7": "http://localhost:8080/assets/images/keenicons-solid.aba5c2d0.svg",
   "assets/images/keenicons-duotone.svg?eut7fk": "http://localhost:8080/assets/images/keenicons-duotone.e58011f1.svg",
   "assets/fonts/fa-solid-900.ttf": "http://localhost:8080/assets/fonts/fa-solid-900.45a265d0.ttf",
+  "assets/images/bg-hero.png": "http://localhost:8080/assets/images/bg-hero.cc9422b5.png",
   "assets/fonts/keenicons-outline.eot?fzo4bm": "http://localhost:8080/assets/fonts/keenicons-outline.14a219e1.eot",
   "assets/fonts/keenicons-outline.woff?fzo4bm": "http://localhost:8080/assets/fonts/keenicons-outline.420056e0.woff",
   "assets/fonts/keenicons-outline.ttf?fzo4bm": "http://localhost:8080/assets/fonts/keenicons-outline.32224aaa.ttf",
@@ -54,6 +55,5 @@
   "assets/images/figma.svg": "http://localhost:8080/assets/images/figma.4978b583.svg",
   "assets/images/facebook.svg": "http://localhost:8080/assets/images/facebook.cebbbbea.svg",
   "assets/images/html.svg": "http://localhost:8080/assets/images/html.d181349c.svg",
-  "assets/images/css.svg": "http://localhost:8080/assets/images/css.a49ee695.svg",
-  "assets/images/bg-hero.png": "http://localhost:8080/assets/images/bg-hero.cc9422b5.png"
+  "assets/images/css.svg": "http://localhost:8080/assets/images/css.a49ee695.svg"
 }

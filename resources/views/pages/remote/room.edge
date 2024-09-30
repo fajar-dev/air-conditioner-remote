@@ -160,19 +160,23 @@
             <div class="d-flex justify-content-between align-items-center pt-5">
               <div>
                 <h5 class="mb-0 pb-0">Share</h5>
-                <span class="text-muted">Share a remote as public</span>
+                <span class="text-muted">share remote as a public</span>
               </div>
               <div class="form-check form-switch form-check-custom form-check-dark form-check-solid">
                 <input class="form-check-input" id="shareToggle" type="checkbox" value="" />
               </div>
             </div>
-            <div class="mt-5">
+            <div class="mt-10">
               <div class="input-group mb-5">
-                <input type="text" class="form-control form-control-solid" value=""/>
-                <button class="btn btn-dark btn-icon"><i class="ki-outline ki-copy fs-3"></i></button>
-                <button class="btn btn-danger btn-icon"><i class="ki-outline ki-arrows-loop fs-3"></i></button>
+                <input type="text" class="form-control form-control-solid" id="key-link" readonly value=""/>
+                <button class="btn btn-dark btn-icon copy-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy">
+                  <i class="ki-outline ki-copy fs-3"></i>
+                </button>
+                <button disabled id="key-reset" class="btn btn-danger btn-icon resetkey">
+                  <i class="ki-outline ki-arrows-loop fs-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Reset Link"></i>
+                </button>
               </div>
-            </div>
+            </div>            
           </div>
         </div> 
       </div>
@@ -192,6 +196,38 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('[data-bs-toggle="tooltip"]').tooltip();
+
+  $('.copy-btn').on('click', function() {
+    var $button = $(this);
+    var $input = $button.siblings('#key-link');
+    var inputValue = $input.val();
+
+    navigator.clipboard.writeText(inputValue).then(function() {
+      $button.find('i').removeClass('ki-copy fs-3').addClass('ki-copy-success fs-3');
+
+      $button.attr('data-bs-original-title', 'Copied').tooltip('hide').tooltip('show'); 
+
+      setTimeout(function() {
+        $button.find('i').removeClass('ki-copy-success').addClass('ki-copy fs-3');
+
+        $button.attr('data-bs-original-title', 'Copy').tooltip('hide').tooltip('show');
+        }, 3000);
+    }).catch(function(err) {
+      console.error('Failed to copy text: ', err);
+      $button.attr('data-bs-original-title', 'Failed to copy').tooltip('hide').tooltip('show');
+
+      setTimeout(function() {
+        $button.attr('data-bs-original-title', 'Copy').tooltip('hide').tooltip('show');
+      }, 2000);
+    });
+  });
+});
+
+</script>
+
 <script>
   @each((item) in data)
     $(document).ready(function() {
@@ -236,7 +272,6 @@
                   $('#header .title .device').text(data.device.merk);
                   $('#item .code').text(data.code);
                   $('#item .device').first().text(data.device.merk);
-                  
                   // Mengatur status tombol On/Off
                   if(data.is_active){
                       $('#item .turn').html(`
@@ -260,15 +295,21 @@
                       $('#display .temperature').html('-');
                   }
                   
-                  // Mengatur input jadwal waktu
                   if (data.schedule) {
                       $('#schedule input[type="time"]').val(data.schedule);
                   } else {
                       $('#schedule input[type="time"]').val('');
                   }
 
-                  // Mengatur status checkbox Share
+                  if (data.is_publish) {
+                    $('.resetkey').removeAttr('disabled');
+                  }else{
+                    $('.resetkey').attr('disabled', 'disabled');
+                  }
+
                   $('#shareToggle').prop('checked', data.is_publish || false);
+
+                  $('#key-link').val("{{request.protocol()}}://{{request.host()}}/public/"+data.id+"/"+data.key)
 
                   // Event handler untuk tombol On
                   $('#on').off('click').on('click', function() {
@@ -393,11 +434,25 @@
                           contentType: 'application/json',
                           data: JSON.stringify(data),
                           success: function(response) {
-                              showToast('Status share berhasil diperbarui.');
+                            loadData(url);
                           },
                           error: function(xhr, status, error) {
                               showToast(`${xhr.responseJSON.message || 'an error occured'}`);
                               $('#shareToggle').prop('checked', !isChecked);
+                          }
+                      });
+                  });
+
+                  $('#key-reset').off('click').on('click', function() {
+                      const resetURL = baseurl + '/key-reset';
+                      $.ajax({
+                          url: resetURL,
+                          method: 'POST',
+                          success: function(response) {
+                              loadData(url);
+                          },
+                          error: function(xhr) {
+                              showToast(`${xhr.responseJSON.message || 'an error occured'}`);
                           }
                       });
                   });

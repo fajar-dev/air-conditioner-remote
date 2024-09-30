@@ -6,6 +6,7 @@ import Building from 'App/Models/Building'
 import Item from 'App/Models/Item'
 import Log from 'App/Models/Log'
 import Room from 'App/Models/Room'
+import { random } from 'App/Helpers/Random'
 
 export default class RemotesController {
   public async index({ view }: HttpContextContract) {
@@ -170,6 +171,17 @@ export default class RemotesController {
       data.isPublish = payload.switch
       await data.save()
       return ApiResponse.ok(response, null, 'Publish Status Has been updated successfully')
+    } catch (error) {
+      return ApiResponse.internalServerError(response, error.message, error.stack)
+    }
+  }
+
+  public async itemKeyReset({ response, params }: HttpContextContract) {
+    try {
+      const data = await Item.findOrFail(params.idItem)
+      data.key = random(6)
+      await data.save()
+      return ApiResponse.ok(response, null, 'Publish Key Has been updated successfully')
     } catch (error) {
       return ApiResponse.internalServerError(response, error.message, error.stack)
     }

@@ -82,6 +82,9 @@ export default () => {
     Route.post('/:idBuilding/:idRoom/:idItem/share', 'Web/RemotesController.itemShare').as(
       'remote.item.share'
     )
+    Route.post('/:idBuilding/:idRoom/:idItem/key-reset', 'Web/RemotesController.itemKeyReset').as(
+      'remote.item.key-reset'
+    )
   })
     .prefix('/remote')
     .middleware('auth')
